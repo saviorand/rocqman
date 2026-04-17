@@ -1,0 +1,119 @@
+package main
+
+func pred(n uint) uint {
+	return (func() any {
+		var _sni_ any = n
+		_su_ := _sni_.(uint)
+		if _su_ == 0 {
+			return n
+		} else {
+			u := _su_ - 1
+			return u
+		}
+	}()).(uint)
+}
+
+func add(n uint, m uint) uint {
+	return (func() any {
+		var _sni_ any = n
+		_su_ := _sni_.(uint)
+		if _su_ == 0 {
+			return m
+		} else {
+			p := _su_ - 1
+			return uint((add(p, m) + 1))
+		}
+	}()).(uint)
+}
+
+func mul(n uint, m uint) uint {
+	return (func() any {
+		var _sni_ any = n
+		_su_ := _sni_.(uint)
+		if _su_ == 0 {
+			return uint(0)
+		} else {
+			p := _su_ - 1
+			return add(m, mul(p, m))
+		}
+	}()).(uint)
+}
+
+func sub(n uint, m uint) uint {
+	return (func() any {
+		var _sni_ any = n
+		_su_ := _sni_.(uint)
+		if _su_ == 0 {
+			return n
+		} else {
+			k := _su_ - 1
+			return (func() any {
+				var _sni_ any = m
+				_su_ := _sni_.(uint)
+				if _su_ == 0 {
+					return n
+				} else {
+					l := _su_ - 1
+					return sub(k, l)
+				}
+			}()).(uint)
+		}
+	}()).(uint)
+}
+
+func eqb(n uint, m uint) bool {
+	return (func() any {
+		var _sni_ any = n
+		_su_ := _sni_.(uint)
+		if _su_ == 0 {
+			return (func() any {
+				var _sni_ any = m
+				_su_ := _sni_.(uint)
+				if _su_ == 0 {
+					return true
+				} else {
+					_ = _su_ - 1
+					return false
+				}
+			}()).(bool)
+		} else {
+			n_ := _su_ - 1
+			return (func() any {
+				var _sni_ any = m
+				_su_ := _sni_.(uint)
+				if _su_ == 0 {
+					return false
+				} else {
+					m_ := _su_ - 1
+					return eqb(n_, m_)
+				}
+			}()).(bool)
+		}
+	}()).(bool)
+}
+
+func leb(n uint, m uint) bool {
+	return (func() any {
+		var _sni_ any = n
+		_su_ := _sni_.(uint)
+		if _su_ == 0 {
+			return true
+		} else {
+			n_ := _su_ - 1
+			return (func() any {
+				var _sni_ any = m
+				_su_ := _sni_.(uint)
+				if _su_ == 0 {
+					return false
+				} else {
+					m_ := _su_ - 1
+					return leb(n_, m_)
+				}
+			}()).(bool)
+		}
+	}()).(bool)
+}
+
+func ltb(n uint, m uint) bool {
+	return leb(uint((n + 1)), m)
+}
