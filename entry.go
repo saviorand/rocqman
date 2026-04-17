@@ -1,5 +1,3 @@
-// Copyright 2025 Bloomberg Finance L.P.
-// Distributed under the terms of the GNU LGPL v2.1 license.
 
 // Go entry point for the Rocqman game.
 // The game logic lives in the Rocq-extracted main.go; this file calls it.
