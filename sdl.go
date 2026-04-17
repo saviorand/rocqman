@@ -1,4 +1,3 @@
-
 //go:build !rocq
 
 package main

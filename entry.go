@@ -1,4 +1,3 @@
-
 // Go entry point for the Rocqman game.
 // The game logic lives in the Rocq-extracted main.go; this file calls it.
 package main
