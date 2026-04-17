@@ -1,0 +1,12 @@
+_build/
+rocqman-go
+*.byte
+*.native
+*.install
+.merlin
+theories/.*.aux
+*.aux
+*.glob
+*.vo
+*.vok
+*.vos

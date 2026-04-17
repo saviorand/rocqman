@@ -1,0 +1,5 @@
+(coq.theory
+ (name RocqmanGoGame)
+ (synopsis "Rocqman game in Rocq, extracted to Go via Crane")
+ (theories Stdlib Crane ITree ExtLib Paco)
+ (flags (:standard -output-directory %{project_root})))
