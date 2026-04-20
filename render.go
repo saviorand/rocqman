@@ -42,8 +42,7 @@ func lerp(from_v uint, to_v uint, num uint, den uint) uint {
 }
 
 func dir_to_degrees(d direction) uint {
-	scrut1 := d
-	switch scrut1 {
+	switch d {
 	case Up:
 		return uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1))
 	case Down:
@@ -55,8 +54,7 @@ func dir_to_degrees(d direction) uint {
 }
 
 func dir_flip_h(d direction) bool {
-	scrut2 := d
-	switch scrut2 {
+	switch d {
 	case Left:
 		return true
 	default:
@@ -66,8 +64,7 @@ func dir_flip_h(d direction) bool {
 }
 
 func ghost_color_index(idx uint, gm ghost_mode) uint {
-	scrut3 := gm
-	switch scrut3 {
+	switch gm {
 	case Chase:
 		return idx
 	case Frightened:
@@ -338,13 +335,13 @@ func draw_one_glyph(ren RocqSDLRenderer, sx uint, sy uint, g uint, s uint) struc
 }
 
 func draw_glyphs(ren RocqSDLRenderer, sx uint, sy uint, s uint, glyphs list[uint]) struct{} {
-	scrut4 := any(glyphs).(*listImpl)
-	switch scrut4.tag {
+	glyphsImpl := any(glyphs).(*listImpl)
+	switch glyphsImpl.tag {
 	case 0:
 		return struct{}{}
 	case 1:
-		g := scrut4.c1f0
-		rest := scrut4.c1f1
+		g := glyphsImpl.c1f0
+		rest := glyphsImpl.c1f1
 		_ = draw_one_glyph(ren, sx, sy, (g).(uint), s)
 		return draw_glyphs(ren, add(sx, mul(uint((uint((uint((uint((uint((uint((uint(0)+1))+1))+1))+1))+1))+1)), s)), sy, s, (rest).(list[uint]))
 	}
@@ -352,13 +349,13 @@ func draw_glyphs(ren RocqSDLRenderer, sx uint, sy uint, s uint, glyphs list[uint
 }
 
 func draw_number_digits(ren RocqSDLRenderer, sx uint, sy uint, digits list[uint]) struct{} {
-	scrut5 := any(digits).(*listImpl)
-	switch scrut5.tag {
+	digitsImpl := any(digits).(*listImpl)
+	switch digitsImpl.tag {
 	case 0:
 		return struct{}{}
 	case 1:
-		d := scrut5.c1f0
-		rest := scrut5.c1f1
+		d := digitsImpl.c1f0
+		rest := digitsImpl.c1f1
 		_ = draw_one_glyph(ren, sx, sy, (d).(uint), uint((uint((uint((uint(0) + 1)) + 1)) + 1)))
 		return draw_number_digits(ren, add(sx, uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0)+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))), sy, (rest).(list[uint]))
 	}
@@ -501,16 +498,16 @@ func draw_dot_check(ren RocqSDLRenderer, cx uint, cy uint) struct{} {
 }
 
 func draw_row_cells(ren RocqSDLRenderer, row uint, col uint, cells list[cell], pellet_phase uint) struct{} {
-	scrut6 := any(cells).(*listImpl)
-	switch scrut6.tag {
+	cellsImpl := any(cells).(*listImpl)
+	switch cellsImpl.tag {
 	case 0:
 		return struct{}{}
 	case 1:
-		c := scrut6.c1f0
-		rest := scrut6.c1f1
+		c := cellsImpl.c1f0
+		rest := cellsImpl.c1f1
 		_ = (func() any {
-			scrut7 := c
-			switch scrut7 {
+			scrut1 := c
+			switch scrut1 {
 			case Wall:
 				_ = rocqSDLSetDrawColor(ren, uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)))
 				return rocqSDLFillRect(ren, add(mul(col, uint(32)), uint((uint(0)+1))), add(mul(row, uint(32)), uint((uint(0)+1))), sub(uint(32), uint((uint((uint(0)+1))+1))), sub(uint(32), uint((uint((uint(0)+1))+1))))
@@ -530,13 +527,13 @@ func draw_row_cells(ren RocqSDLRenderer, row uint, col uint, cells list[cell], p
 }
 
 func draw_board_rows(ren RocqSDLRenderer, row uint, rows list[list[cell]], pellet_phase uint) struct{} {
-	scrut8 := any(rows).(*listImpl)
-	switch scrut8.tag {
+	rowsImpl := any(rows).(*listImpl)
+	switch rowsImpl.tag {
 	case 0:
 		return struct{}{}
 	case 1:
-		cells := scrut8.c1f0
-		rest := scrut8.c1f1
+		cells := rowsImpl.c1f0
+		rest := rowsImpl.c1f1
 		_ = draw_row_cells(ren, row, uint(0), (cells).(list[cell]), pellet_phase)
 		return draw_board_rows(ren, uint((row + 1)), (rest).(list[list[cell]]), pellet_phase)
 	}
@@ -544,75 +541,63 @@ func draw_board_rows(ren RocqSDLRenderer, row uint, rows list[list[cell]], pelle
 }
 
 func draw_board_sdl(ren RocqSDLRenderer, gs game_state, pellet_phase uint) struct{} {
-	return draw_board_rows(ren, uint(0), (func() list[list[cell]] {
-		scrut9 := gs
-		board := scrut9.board
-		return board
-	})(), pellet_phase)
+	return draw_board_rows(ren, uint(0), gs.board, pellet_phase)
 }
 
 func draw_ghosts_aux(ren RocqSDLRenderer, idx uint, gs list[ghost_state], prev_gs list[ghost_state], t_num uint, t_den uint, time_ms uint) struct{} {
-	scrut10 := any(gs).(*listImpl)
-	switch scrut10.tag {
+	gsImpl := any(gs).(*listImpl)
+	switch gsImpl.tag {
 	case 0:
 		return struct{}{}
 	case 1:
-		g := scrut10.c1f0
-		rest := scrut10.c1f1
+		g := gsImpl.c1f0
+		rest := gsImpl.c1f1
 		prev_g := (func() ghost_state {
-			scrut11 := any(prev_gs).(*listImpl)
-			switch scrut11.tag {
+			prev_gsImpl := any(prev_gs).(*listImpl)
+			switch prev_gsImpl.tag {
 			case 0:
 				return (g).(ghost_state)
 			case 1:
-				pg := scrut11.c1f0
+				pg := prev_gsImpl.c1f0
 				return (pg).(ghost_state)
 			}
 			panic("unreachable")
 		})()
 		prev_rest := (func() list[ghost_state] {
-			scrut12 := any(prev_gs).(*listImpl)
-			switch scrut12.tag {
+			prev_gsImpl2 := any(prev_gs).(*listImpl)
+			switch prev_gsImpl2.tag {
 			case 0:
 				return nil_
 			case 1:
-				pr := scrut12.c1f1
+				pr := prev_gsImpl2.c1f1
 				return (pr).(list[ghost_state])
 			}
 			panic("unreachable")
 		})()
 		px := lerp(cell_center_x((func() uint {
-			scrut13 := (func() position {
-				scrut14 := prev_g
-				gpos := scrut14.gpos
-				return gpos
-			})()
-			pcol := scrut13.pcol
+			scrut2 := prev_g.gpos
+			pcol := scrut2.pcol
 			return pcol
 		})()), cell_center_x((func() uint {
-			scrut15 := (func() position {
-				scrut16 := any(g).(ghost_state)
-				gpos := scrut16.gpos
+			scrut3 := (func() position {
+				g := any(g).(ghost_state)
+				gpos := g.gpos
 				return gpos
 			})()
-			pcol := scrut15.pcol
+			pcol := scrut3.pcol
 			return pcol
 		})()), t_num, t_den)
 		py := lerp(cell_center_y((func() uint {
-			scrut17 := (func() position {
-				scrut18 := prev_g
-				gpos := scrut18.gpos
-				return gpos
-			})()
-			prow := scrut17.prow
+			scrut4 := prev_g.gpos
+			prow := scrut4.prow
 			return prow
 		})()), cell_center_y((func() uint {
-			scrut19 := (func() position {
-				scrut20 := any(g).(ghost_state)
-				gpos := scrut20.gpos
+			scrut5 := (func() position {
+				g2 := any(g).(ghost_state)
+				gpos := g2.gpos
 				return gpos
 			})()
-			prow := scrut19.prow
+			prow := scrut5.prow
 			return prow
 		})()), t_num, t_den)
 		col := ghost_color_index(func() uint {
@@ -621,8 +606,8 @@ func draw_ghosts_aux(ren RocqSDLRenderer, idx uint, gs list[ghost_state], prev_g
 			}
 			return idx % uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1))
 		}(), (func() ghost_mode {
-			scrut21 := any(g).(ghost_state)
-			gmode := scrut21.gmode
+			g3 := any(g).(ghost_state)
+			gmode := g3.gmode
 			return gmode
 		})())
 		_ = draw_ghost_sprite(ren, px, py, col)
@@ -632,41 +617,17 @@ func draw_ghosts_aux(ren RocqSDLRenderer, idx uint, gs list[ghost_state], prev_g
 }
 
 func draw_player_sdl(ren RocqSDLRenderer, tex RocqSDLTexture, gs game_state, prev_pos position, t_num uint, t_den uint) struct{} {
-	px := lerp(cell_center_x((func() uint {
-		scrut22 := prev_pos
-		pcol := scrut22.pcol
-		return pcol
-	})()), cell_center_x((func() uint {
-		scrut23 := (func() position {
-			scrut24 := gs
-			pacpos := scrut24.pacpos
-			return pacpos
-		})()
-		pcol := scrut23.pcol
+	px := lerp(cell_center_x(prev_pos.pcol), cell_center_x((func() uint {
+		scrut6 := gs.pacpos
+		pcol := scrut6.pcol
 		return pcol
 	})()), t_num, t_den)
-	py := lerp(cell_center_y((func() uint {
-		scrut25 := prev_pos
-		prow := scrut25.prow
-		return prow
-	})()), cell_center_y((func() uint {
-		scrut26 := (func() position {
-			scrut27 := gs
-			pacpos := scrut27.pacpos
-			return pacpos
-		})()
-		prow := scrut26.prow
+	py := lerp(cell_center_y(prev_pos.prow), cell_center_y((func() uint {
+		scrut7 := gs.pacpos
+		prow := scrut7.prow
 		return prow
 	})()), t_num, t_den)
-	return rocqSDLRenderTextureRotated(ren, tex, px, py, uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), dir_to_degrees((func() direction {
-		scrut28 := gs
-		pacdir := scrut28.pacdir
-		return pacdir
-	})()), dir_flip_h((func() direction {
-		scrut29 := gs
-		pacdir := scrut29.pacdir
-		return pacdir
-	})()))
+	return rocqSDLRenderTextureRotated(ren, tex, px, py, uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), dir_to_degrees(gs.pacdir), dir_flip_h(gs.pacdir))
 }
 
 func draw_lives_aux(ren RocqSDLRenderer, n uint, i uint) struct{} {
@@ -684,27 +645,15 @@ func draw_lives_aux(ren RocqSDLRenderer, n uint, i uint) struct{} {
 }
 
 func draw_status_bar(ren RocqSDLRenderer, gs game_state) struct{} {
-	_ = draw_number_sprite(ren, (func() uint {
-		scrut30 := gs
-		score := scrut30.score
-		return score
-	})(), uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), add(mul(uint(15), uint(32)), uint((uint((uint((uint((uint((uint((uint((uint((uint(0)+1))+1))+1))+1))+1))+1))+1))+1))))
-	return draw_lives_aux(ren, (func() uint {
-		scrut31 := gs
-		lives := scrut31.lives
-		return lives
-	})(), uint(0))
+	_ = draw_number_sprite(ren, gs.score, uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), add(mul(uint(15), uint(32)), uint((uint((uint((uint((uint((uint((uint((uint((uint(0)+1))+1))+1))+1))+1))+1))+1))+1))))
+	return draw_lives_aux(ren, gs.lives, uint(0))
 }
 
 func render_frame(ren RocqSDLRenderer, tex RocqSDLTexture, gs game_state, prev_pac position, prev_ghosts list[ghost_state], t_num uint, t_den uint, time_ms uint) struct{} {
 	_ = rocqSDLSetDrawColor(ren, uint(0), uint(0), uint(0))
 	_ = rocqSDLClear(ren)
 	_ = draw_board_sdl(ren, gs, time_ms)
-	_ = draw_ghosts_aux(ren, uint(0), (func() list[ghost_state] {
-		scrut32 := gs
-		ghosts := scrut32.ghosts
-		return ghosts
-	})(), prev_ghosts, t_num, t_den, time_ms)
+	_ = draw_ghosts_aux(ren, uint(0), gs.ghosts, prev_ghosts, t_num, t_den, time_ms)
 	_ = draw_player_sdl(ren, tex, gs, prev_pac, t_num, t_den)
 	_ = draw_status_bar(ren, gs)
 	return rocqSDLPresent(ren)
@@ -714,11 +663,7 @@ func render_paused_frame(ren RocqSDLRenderer, tex RocqSDLTexture, gs game_state,
 	_ = rocqSDLSetDrawColor(ren, uint(0), uint(0), uint(0))
 	_ = rocqSDLClear(ren)
 	_ = draw_board_sdl(ren, gs, time_ms)
-	_ = draw_ghosts_aux(ren, uint(0), (func() list[ghost_state] {
-		scrut33 := gs
-		ghosts := scrut33.ghosts
-		return ghosts
-	})(), prev_ghosts, t_num, t_den, time_ms)
+	_ = draw_ghosts_aux(ren, uint(0), gs.ghosts, prev_ghosts, t_num, t_den, time_ms)
 	_ = draw_player_sdl(ren, tex, gs, prev_pac, t_num, t_den)
 	_ = draw_status_bar(ren, gs)
 	_ = draw_status_message(ren, msg_paused)

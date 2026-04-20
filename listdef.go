@@ -5,12 +5,12 @@ func nth(n any, l any, default0 any) any {
 	return func() any {
 		if (n).(uint) == 0 {
 			return (func() any {
-				scrut1 := any(l).(*listImpl)
-				switch scrut1.tag {
+				lImpl := any(l).(*listImpl)
+				switch lImpl.tag {
 				case 0:
 					return default0
 				case 1:
-					x := scrut1.c1f0
+					x := lImpl.c1f0
 					return x
 				}
 				panic("unreachable")
@@ -18,12 +18,12 @@ func nth(n any, l any, default0 any) any {
 		} else {
 			m := (n).(uint) - 1
 			return (func() any {
-				scrut2 := any(l).(*listImpl)
-				switch scrut2.tag {
+				lImpl2 := any(l).(*listImpl)
+				switch lImpl2.tag {
 				case 0:
 					return default0
 				case 1:
-					l_ := scrut2.c1f1
+					l_ := lImpl2.c1f1
 					return nth(m, (l_).(list[any]), default0)
 				}
 				panic("unreachable")

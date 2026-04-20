@@ -14,15 +14,15 @@ var P cell = PowerPellet
 var initial_board list[list[cell]] = cons(cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, nil_))))))))))))))))))), cons(cons(W, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(W, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(W, nil_))))))))))))))))))), cons(cons(W, cons(D, cons(W, cons(W, cons(D, cons(W, cons(W, cons(W, cons(D, cons(W, cons(D, cons(W, cons(W, cons(W, cons(D, cons(W, cons(W, cons(D, cons(W, nil_))))))))))))))))))), cons(cons(W, cons(P, cons(W, cons(D, cons(D, cons(D, cons(W, cons(D, cons(D, cons(D, cons(D, cons(D, cons(W, cons(D, cons(D, cons(D, cons(W, cons(P, cons(W, nil_))))))))))))))))))), cons(cons(W, cons(D, cons(W, cons(W, cons(W, cons(D, cons(W, cons(D, cons(W, cons(W, cons(W, cons(D, cons(W, cons(D, cons(W, cons(W, cons(W, cons(D, cons(W, nil_))))))))))))))))))), cons(cons(W, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(W, nil_))))))))))))))))))), cons(cons(W, cons(W, cons(D, cons(W, cons(D, cons(W, cons(W, cons(D, cons(W, cons(W, cons(W, cons(D, cons(W, cons(W, cons(D, cons(W, cons(D, cons(W, cons(W, nil_))))))))))))))))))), cons(cons(W, cons(D, cons(D, cons(D, cons(D, cons(W, cons(D, cons(D, cons(D, cons(W, cons(D, cons(D, cons(D, cons(W, cons(D, cons(D, cons(D, cons(D, cons(W, nil_))))))))))))))))))), cons(cons(W, cons(D, cons(W, cons(W, cons(D, cons(W, cons(W, cons(W, cons(D, cons(W, cons(D, cons(W, cons(W, cons(W, cons(D, cons(W, cons(W, cons(D, cons(W, nil_))))))))))))))))))), cons(cons(W, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(W, nil_))))))))))))))))))), cons(cons(W, cons(D, cons(W, cons(W, cons(W, cons(D, cons(W, cons(D, cons(W, cons(W, cons(W, cons(D, cons(W, cons(D, cons(W, cons(W, cons(W, cons(D, cons(W, nil_))))))))))))))))))), cons(cons(W, cons(P, cons(W, cons(D, cons(D, cons(D, cons(W, cons(D, cons(D, cons(D, cons(D, cons(D, cons(W, cons(D, cons(D, cons(D, cons(W, cons(P, cons(W, nil_))))))))))))))))))), cons(cons(W, cons(D, cons(W, cons(W, cons(D, cons(W, cons(W, cons(W, cons(D, cons(W, cons(D, cons(W, cons(W, cons(W, cons(D, cons(W, cons(W, cons(D, cons(W, nil_))))))))))))))))))), cons(cons(W, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(W, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(D, cons(W, nil_))))))))))))))))))), cons(cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, cons(W, nil_))))))))))))))))))), nil_)))))))))))))))
 
 func count_row(r list[cell]) uint {
-	scrut1 := any(r).(*listImpl)
-	switch scrut1.tag {
+	rImpl := any(r).(*listImpl)
+	switch rImpl.tag {
 	case 0:
 		return uint(0)
 	case 1:
-		c := scrut1.c1f0
-		rest := scrut1.c1f1
-		scrut2 := c
-		switch scrut2 {
+		c := rImpl.c1f0
+		rest := rImpl.c1f1
+		scrut1 := c
+		switch scrut1 {
 		case Wall:
 			return count_row((rest).(list[cell]))
 		case Empty:
@@ -36,13 +36,13 @@ func count_row(r list[cell]) uint {
 }
 
 func count_dots(b list[list[cell]]) uint {
-	scrut3 := any(b).(*listImpl)
-	switch scrut3.tag {
+	bImpl := any(b).(*listImpl)
+	switch bImpl.tag {
 	case 0:
 		return uint(0)
 	case 1:
-		row := scrut3.c1f0
-		rest := scrut3.c1f1
+		row := bImpl.c1f0
+		rest := bImpl.c1f1
 		return add(count_row((row).(list[cell])), count_dots((rest).(list[list[cell]])))
 	}
 	panic("unreachable")
@@ -53,13 +53,13 @@ func get_cell(row uint, col uint, b list[list[cell]]) cell {
 }
 
 func replace_nth[T1 any](n uint, l list[T1], x T1) list[T1] {
-	scrut4 := any(l).(*listImpl)
-	switch scrut4.tag {
+	lImpl := any(l).(*listImpl)
+	switch lImpl.tag {
 	case 0:
 		return nil_
 	case 1:
-		h := scrut4.c1f0
-		t := scrut4.c1f1
+		h := lImpl.c1f0
+		t := lImpl.c1f1
 		return (func() any {
 			if n == 0 {
 				return cons(x, t)
@@ -78,8 +78,8 @@ func set_cell(row uint, col uint, c cell, b list[list[cell]]) list[list[cell]] {
 }
 
 func is_wall(row uint, col uint, b list[list[cell]]) bool {
-	scrut5 := get_cell(row, col, b)
-	switch scrut5 {
+	scrut2 := get_cell(row, col, b)
+	switch scrut2 {
 	case Wall:
 		return true
 	default:
@@ -89,48 +89,15 @@ func is_wall(row uint, col uint, b list[list[cell]]) bool {
 }
 
 func move_pos(d direction, p position) position {
-	scrut6 := d
-	switch scrut6 {
+	switch d {
 	case Up:
-		return mkPos(pred((func() uint {
-			scrut7 := p
-			prow := scrut7.prow
-			return prow
-		})()), (func() uint {
-			scrut8 := p
-			pcol := scrut8.pcol
-			return pcol
-		})())
+		return mkPos(pred(p.prow), p.pcol)
 	case Down:
-		return mkPos(uint(((func() uint {
-			scrut9 := p
-			prow := scrut9.prow
-			return prow
-		})() + 1)), (func() uint {
-			scrut10 := p
-			pcol := scrut10.pcol
-			return pcol
-		})())
+		return mkPos(uint((p.prow + 1)), p.pcol)
 	case Left:
-		return mkPos((func() uint {
-			scrut11 := p
-			prow := scrut11.prow
-			return prow
-		})(), pred((func() uint {
-			scrut12 := p
-			pcol := scrut12.pcol
-			return pcol
-		})()))
+		return mkPos(p.prow, pred(p.pcol))
 	case Right:
-		return mkPos((func() uint {
-			scrut13 := p
-			prow := scrut13.prow
-			return prow
-		})(), uint(((func() uint {
-			scrut14 := p
-			pcol := scrut14.pcol
-			return pcol
-		})() + 1)))
+		return mkPos(p.prow, uint((p.pcol + 1)))
 	case DirNone:
 		return p
 	}
@@ -139,25 +106,17 @@ func move_pos(d direction, p position) position {
 
 func can_move(d direction, p position, b list[list[cell]]) bool {
 	new_p := move_pos(d, p)
-	return !(is_wall((func() uint {
-		scrut15 := new_p
-		prow := scrut15.prow
-		return prow
-	})(), (func() uint {
-		scrut16 := new_p
-		pcol := scrut16.pcol
-		return pcol
-	})(), b))
+	return !(is_wall(new_p.prow, new_p.pcol, b))
 }
 
 func update_ghost_modes(gs list[ghost_state], powered bool) list[ghost_state] {
-	scrut17 := any(gs).(*listImpl)
-	switch scrut17.tag {
+	gsImpl := any(gs).(*listImpl)
+	switch gsImpl.tag {
 	case 0:
 		return nil_
 	case 1:
-		g := scrut17.c1f0
-		rest := scrut17.c1f1
+		g := gsImpl.c1f0
+		rest := gsImpl.c1f1
 		mode := (func() any {
 			if powered {
 				return Frightened
@@ -166,12 +125,12 @@ func update_ghost_modes(gs list[ghost_state], powered bool) list[ghost_state] {
 			}
 		}()).(ghost_mode)
 		return cons(mkGhost((func() position {
-			scrut18 := any(g).(ghost_state)
-			gpos := scrut18.gpos
+			g := any(g).(ghost_state)
+			gpos := g.gpos
 			return gpos
 		})(), (func() direction {
-			scrut19 := any(g).(ghost_state)
-			gdir := scrut19.gdir
+			g2 := any(g).(ghost_state)
+			gdir := g2.gdir
 			return gdir
 		})(), mode), update_ghost_modes((rest).(list[ghost_state]), powered))
 	}
@@ -179,159 +138,45 @@ func update_ghost_modes(gs list[ghost_state], powered bool) list[ghost_state] {
 }
 
 func set_direction(d direction, gs game_state) game_state {
-	return mkState((func() list[list[cell]] {
-		scrut20 := gs
-		board := scrut20.board
-		return board
-	})(), (func() position {
-		scrut21 := gs
-		pacpos := scrut21.pacpos
-		return pacpos
-	})(), (func() direction {
-		scrut22 := gs
-		pacdir := scrut22.pacdir
-		return pacdir
-	})(), d, (func() list[ghost_state] {
-		scrut23 := gs
-		ghosts := scrut23.ghosts
-		return ghosts
-	})(), (func() uint {
-		scrut24 := gs
-		score := scrut24.score
-		return score
-	})(), (func() uint {
-		scrut25 := gs
-		lives := scrut25.lives
-		return lives
-	})(), (func() uint {
-		scrut26 := gs
-		dots_left := scrut26.dots_left
-		return dots_left
-	})(), (func() uint {
-		scrut27 := gs
-		power_timer := scrut27.power_timer
-		return power_timer
-	})(), (func() bool {
-		scrut28 := gs
-		game_over := scrut28.game_over
-		return game_over
-	})(), (func() bool {
-		scrut29 := gs
-		game_won := scrut29.game_won
-		return game_won
-	})())
+	return mkState(gs.board, gs.pacpos, gs.pacdir, d, gs.ghosts, gs.score, gs.lives, gs.dots_left, gs.power_timer, gs.game_over, gs.game_won)
 }
 
 func move_pacman(gs game_state) game_state {
 	return (func() any {
-		if (func() bool {
-			scrut30 := gs
-			game_over := scrut30.game_over
-			return game_over
-		})() || (func() bool {
-			scrut31 := gs
-			game_won := scrut31.game_won
-			return game_won
-		})() {
+		if gs.game_over || gs.game_won {
 			return gs
 		} else {
 			return (func() game_state {
 				try_dir0 := (func() any {
-					if can_move((func() direction {
-						scrut32 := gs
-						desired_dir := scrut32.desired_dir
-						return desired_dir
-					})(), (func() position {
-						scrut33 := gs
-						pacpos := scrut33.pacpos
-						return pacpos
-					})(), (func() list[list[cell]] {
-						scrut34 := gs
-						board := scrut34.board
-						return board
-					})()) {
-						return (func() direction {
-							scrut35 := gs
-							desired_dir := scrut35.desired_dir
-							return desired_dir
-						})()
+					if can_move(gs.desired_dir, gs.pacpos, gs.board) {
+						return gs.desired_dir
 					} else {
-						return (func() direction {
-							scrut36 := gs
-							pacdir := scrut36.pacdir
-							return pacdir
-						})()
+						return gs.pacdir
 					}
 				}()).(direction)
 				return (func() game_state {
-					new_pos := move_pos(try_dir0, (func() position {
-						scrut37 := gs
-						pacpos := scrut37.pacpos
-						return pacpos
-					})())
+					new_pos := move_pos(try_dir0, gs.pacpos)
 					return (func() any {
-						if is_wall((func() uint {
-							scrut38 := new_pos
-							prow := scrut38.prow
-							return prow
-						})(), (func() uint {
-							scrut39 := new_pos
-							pcol := scrut39.pcol
-							return pcol
-						})(), (func() list[list[cell]] {
-							scrut40 := gs
-							board := scrut40.board
-							return board
-						})()) {
+						if is_wall(new_pos.prow, new_pos.pcol, gs.board) {
 							return gs
 						} else {
 							return (func() game_state {
-								cell0 := get_cell((func() uint {
-									scrut41 := new_pos
-									prow := scrut41.prow
-									return prow
-								})(), (func() uint {
-									scrut42 := new_pos
-									pcol := scrut42.pcol
-									return pcol
-								})(), (func() list[list[cell]] {
-									scrut43 := gs
-									board := scrut43.board
-									return board
-								})())
+								cell0 := get_cell(new_pos.prow, new_pos.pcol, gs.board)
 								return (func() game_state {
 									new_board := (func() list[list[cell]] {
-										scrut44 := cell0
-										switch scrut44 {
+										switch cell0 {
 										case Wall:
-											scrut45 := gs
-											board := scrut45.board
-											return board
+											return gs.board
 										case Empty:
-											scrut46 := gs
-											board := scrut46.board
-											return board
+											return gs.board
 										default:
-											return set_cell((func() uint {
-												scrut47 := new_pos
-												prow := scrut47.prow
-												return prow
-											})(), (func() uint {
-												scrut48 := new_pos
-												pcol := scrut48.pcol
-												return pcol
-											})(), Empty, (func() list[list[cell]] {
-												scrut49 := gs
-												board := scrut49.board
-												return board
-											})())
+											return set_cell(new_pos.prow, new_pos.pcol, Empty, gs.board)
 										}
 										panic("unreachable")
 									})()
 									return (func() game_state {
 										add_score := (func() uint {
-											scrut50 := cell0
-											switch scrut50 {
+											switch cell0 {
 											case Dot:
 												return uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1))
 											case PowerPellet:
@@ -343,70 +188,39 @@ func move_pacman(gs game_state) game_state {
 										})()
 										return (func() game_state {
 											new_dots := (func() uint {
-												scrut51 := cell0
-												switch scrut51 {
+												switch cell0 {
 												case Wall:
-													scrut52 := gs
-													dots_left := scrut52.dots_left
-													return dots_left
+													return gs.dots_left
 												case Empty:
-													scrut53 := gs
-													dots_left := scrut53.dots_left
-													return dots_left
+													return gs.dots_left
 												default:
-													return pred((func() uint {
-														scrut54 := gs
-														dots_left := scrut54.dots_left
-														return dots_left
-													})())
+													return pred(gs.dots_left)
 												}
 												panic("unreachable")
 											})()
 											return (func() game_state {
 												new_power := (func() uint {
-													scrut55 := cell0
-													switch scrut55 {
+													switch cell0 {
 													case PowerPellet:
 														return uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1))
 													default:
-														scrut56 := gs
-														power_timer := scrut56.power_timer
-														return power_timer
+														return gs.power_timer
 													}
 													panic("unreachable")
 												})()
 												return (func() game_state {
 													new_ghosts := (func() list[ghost_state] {
-														scrut57 := cell0
-														switch scrut57 {
+														switch cell0 {
 														case PowerPellet:
-															return update_ghost_modes((func() list[ghost_state] {
-																scrut58 := gs
-																ghosts := scrut58.ghosts
-																return ghosts
-															})(), true)
+															return update_ghost_modes(gs.ghosts, true)
 														default:
-															scrut59 := gs
-															ghosts := scrut59.ghosts
-															return ghosts
+															return gs.ghosts
 														}
 														panic("unreachable")
 													})()
 													return (func() game_state {
 														won := eqb(new_dots, uint(0))
-														return mkState(new_board, new_pos, try_dir0, (func() direction {
-															scrut60 := gs
-															desired_dir := scrut60.desired_dir
-															return desired_dir
-														})(), new_ghosts, add((func() uint {
-															scrut61 := gs
-															score := scrut61.score
-															return score
-														})(), add_score), (func() uint {
-															scrut62 := gs
-															lives := scrut62.lives
-															return lives
-														})(), new_dots, new_power, won, won)
+														return mkState(new_board, new_pos, try_dir0, gs.desired_dir, new_ghosts, add(gs.score, add_score), gs.lives, new_dots, new_power, won, won)
 													})()
 												})()
 											})()
@@ -433,31 +247,13 @@ func abs_diff(a uint, b uint) uint {
 }
 
 func manhattan(p1 position, p2 position) uint {
-	return add(abs_diff((func() uint {
-		scrut63 := p1
-		prow := scrut63.prow
-		return prow
-	})(), (func() uint {
-		scrut64 := p2
-		prow := scrut64.prow
-		return prow
-	})()), abs_diff((func() uint {
-		scrut65 := p1
-		pcol := scrut65.pcol
-		return pcol
-	})(), (func() uint {
-		scrut66 := p2
-		pcol := scrut66.pcol
-		return pcol
-	})()))
+	return add(abs_diff(p1.prow, p2.prow), abs_diff(p1.pcol, p2.pcol))
 }
 
 func is_opposite(d1 direction, d2 direction) bool {
-	scrut67 := d1
-	switch scrut67 {
+	switch d1 {
 	case Up:
-		scrut68 := d2
-		switch scrut68 {
+		switch d2 {
 		case Down:
 			return true
 		default:
@@ -465,8 +261,7 @@ func is_opposite(d1 direction, d2 direction) bool {
 		}
 		panic("unreachable")
 	case Down:
-		scrut69 := d2
-		switch scrut69 {
+		switch d2 {
 		case Up:
 			return true
 		default:
@@ -474,8 +269,7 @@ func is_opposite(d1 direction, d2 direction) bool {
 		}
 		panic("unreachable")
 	case Left:
-		scrut70 := d2
-		switch scrut70 {
+		switch d2 {
 		case Right:
 			return true
 		default:
@@ -483,8 +277,7 @@ func is_opposite(d1 direction, d2 direction) bool {
 		}
 		panic("unreachable")
 	case Right:
-		scrut71 := d2
-		switch scrut71 {
+		switch d2 {
 		case Left:
 			return true
 		default:
@@ -502,22 +295,14 @@ func try_dir(d direction, g ghost_state, target position, b list[list[cell]], be
 	snd uint
 } {
 	return (func() any {
-		if !(can_move(d, (func() position {
-			scrut72 := g
-			gpos := scrut72.gpos
-			return gpos
-		})(), b)) {
+		if !(can_move(d, g.gpos, b)) {
 			return struct {
 				fst direction
 				snd uint
 			}{fst: best_d, snd: best_dist}
 		} else {
 			return (func() any {
-				if is_opposite(d, (func() direction {
-					scrut73 := g
-					gdir := scrut73.gdir
-					return gdir
-				})()) {
+				if is_opposite(d, g.gdir) {
 					return struct {
 						fst direction
 						snd uint
@@ -527,11 +312,7 @@ func try_dir(d direction, g ghost_state, target position, b list[list[cell]], be
 						fst direction
 						snd uint
 					} {
-						new_pos := move_pos(d, (func() position {
-							scrut74 := g
-							gpos := scrut74.gpos
-							return gpos
-						})())
+						new_pos := move_pos(d, g.gpos)
 						return (func() struct {
 							fst direction
 							snd uint
@@ -589,12 +370,8 @@ func choose_ghost_dir(g ghost_state, target position, b list[list[cell]]) direct
 
 func move_one_ghost(g ghost_state, pac position, b list[list[cell]]) ghost_state {
 	target := (func() position {
-		scrut75 := (func() ghost_mode {
-			scrut76 := g
-			gmode := scrut76.gmode
-			return gmode
-		})()
-		switch scrut75 {
+		scrut3 := g.gmode
+		switch scrut3 {
 		case Chase:
 			return pac
 		case Frightened:
@@ -604,20 +381,8 @@ func move_one_ghost(g ghost_state, pac position, b list[list[cell]]) ghost_state
 	})()
 	dir := choose_ghost_dir(g, target, b)
 	return (func() any {
-		if can_move(dir, (func() position {
-			scrut77 := g
-			gpos := scrut77.gpos
-			return gpos
-		})(), b) {
-			return mkGhost(move_pos(dir, (func() position {
-				scrut78 := g
-				gpos := scrut78.gpos
-				return gpos
-			})()), dir, (func() ghost_mode {
-				scrut79 := g
-				gmode := scrut79.gmode
-				return gmode
-			})())
+		if can_move(dir, g.gpos, b) {
+			return mkGhost(move_pos(dir, g.gpos), dir, g.gmode)
 		} else {
 			return g
 		}
@@ -625,72 +390,20 @@ func move_one_ghost(g ghost_state, pac position, b list[list[cell]]) ghost_state
 }
 
 func move_ghosts_list(gs list[ghost_state], pac position, b list[list[cell]]) list[ghost_state] {
-	scrut80 := any(gs).(*listImpl)
-	switch scrut80.tag {
+	gsImpl2 := any(gs).(*listImpl)
+	switch gsImpl2.tag {
 	case 0:
 		return nil_
 	case 1:
-		g := scrut80.c1f0
-		rest := scrut80.c1f1
+		g := gsImpl2.c1f0
+		rest := gsImpl2.c1f1
 		return cons(move_one_ghost((g).(ghost_state), pac, b), move_ghosts_list((rest).(list[ghost_state]), pac, b))
 	}
 	panic("unreachable")
 }
 
 func move_ghosts(gs game_state) game_state {
-	return mkState((func() list[list[cell]] {
-		scrut81 := gs
-		board := scrut81.board
-		return board
-	})(), (func() position {
-		scrut82 := gs
-		pacpos := scrut82.pacpos
-		return pacpos
-	})(), (func() direction {
-		scrut83 := gs
-		pacdir := scrut83.pacdir
-		return pacdir
-	})(), (func() direction {
-		scrut84 := gs
-		desired_dir := scrut84.desired_dir
-		return desired_dir
-	})(), move_ghosts_list((func() list[ghost_state] {
-		scrut85 := gs
-		ghosts := scrut85.ghosts
-		return ghosts
-	})(), (func() position {
-		scrut86 := gs
-		pacpos := scrut86.pacpos
-		return pacpos
-	})(), (func() list[list[cell]] {
-		scrut87 := gs
-		board := scrut87.board
-		return board
-	})()), (func() uint {
-		scrut88 := gs
-		score := scrut88.score
-		return score
-	})(), (func() uint {
-		scrut89 := gs
-		lives := scrut89.lives
-		return lives
-	})(), (func() uint {
-		scrut90 := gs
-		dots_left := scrut90.dots_left
-		return dots_left
-	})(), (func() uint {
-		scrut91 := gs
-		power_timer := scrut91.power_timer
-		return power_timer
-	})(), (func() bool {
-		scrut92 := gs
-		game_over := scrut92.game_over
-		return game_over
-	})(), (func() bool {
-		scrut93 := gs
-		game_won := scrut93.game_won
-		return game_won
-	})())
+	return mkState(gs.board, gs.pacpos, gs.pacdir, gs.desired_dir, move_ghosts_list(gs.ghosts, gs.pacpos, gs.board), gs.score, gs.lives, gs.dots_left, gs.power_timer, gs.game_over, gs.game_won)
 }
 
 func respawn_ghost(_ ghost_state) ghost_state {
@@ -699,63 +412,15 @@ func respawn_ghost(_ ghost_state) ghost_state {
 
 func tick_power(gs game_state) game_state {
 	return (func() any {
-		if (func() uint {
-			scrut94 := gs
-			power_timer := scrut94.power_timer
-			return power_timer
-		})() == 0 {
+		if gs.power_timer == 0 {
 			return gs
 		} else {
-			n := (func() uint {
-				scrut94 := gs
-				power_timer := scrut94.power_timer
-				return power_timer
-			})() - 1
+			n := gs.power_timer - 1
 			return (func() game_state {
 				powered := !(eqb(n, uint(0)))
 				return (func() game_state {
-					new_ghosts := update_ghost_modes((func() list[ghost_state] {
-						scrut95 := gs
-						ghosts := scrut95.ghosts
-						return ghosts
-					})(), powered)
-					return mkState((func() list[list[cell]] {
-						scrut96 := gs
-						board := scrut96.board
-						return board
-					})(), (func() position {
-						scrut97 := gs
-						pacpos := scrut97.pacpos
-						return pacpos
-					})(), (func() direction {
-						scrut98 := gs
-						pacdir := scrut98.pacdir
-						return pacdir
-					})(), (func() direction {
-						scrut99 := gs
-						desired_dir := scrut99.desired_dir
-						return desired_dir
-					})(), new_ghosts, (func() uint {
-						scrut100 := gs
-						score := scrut100.score
-						return score
-					})(), (func() uint {
-						scrut101 := gs
-						lives := scrut101.lives
-						return lives
-					})(), (func() uint {
-						scrut102 := gs
-						dots_left := scrut102.dots_left
-						return dots_left
-					})(), n, (func() bool {
-						scrut103 := gs
-						game_over := scrut103.game_over
-						return game_over
-					})(), (func() bool {
-						scrut104 := gs
-						game_won := scrut104.game_won
-						return game_won
-					})())
+					new_ghosts := update_ghost_modes(gs.ghosts, powered)
+					return mkState(gs.board, gs.pacpos, gs.pacdir, gs.desired_dir, new_ghosts, gs.score, gs.lives, gs.dots_left, n, gs.game_over, gs.game_won)
 				})()
 			})()
 		}
@@ -764,15 +429,7 @@ func tick_power(gs game_state) game_state {
 
 func tick(gs game_state) game_state {
 	return (func() any {
-		if (func() bool {
-			scrut105 := gs
-			game_over := scrut105.game_over
-			return game_over
-		})() || (func() bool {
-			scrut106 := gs
-			game_won := scrut106.game_won
-			return game_won
-		})() {
+		if gs.game_over || gs.game_won {
 			return gs
 		} else {
 			return (func() game_state {
