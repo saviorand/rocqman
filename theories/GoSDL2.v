@@ -46,7 +46,7 @@ Crane Extract Inductive sumbool =>
 Crane Extract Inductive nat =>
   "uint"
   [ "0" "(%a0 + 1)" ]
-  "func() any { var _sni_ any = %scrut; _su_ := _sni_.(uint); if _su_ == 0 { return %br0 } else { %b1a0 := _su_ - 1; return %br1 } }()".
+  "func() any { if %scrut == 0 { return %br0 } else { %b1a0 := %scrut - 1; return %br1 } }()".
 
 Crane Extract Numeral nat => "%nu".
 

@@ -68,12 +68,10 @@ func replace_nth[T1 any](n uint, l list[T1], x T1) list[T1] {
 			h := scrut4.c1f0
 			t := scrut4.c1f1
 			return (func() any {
-				var _sni_ any = n
-				_su_ := _sni_.(uint)
-				if _su_ == 0 {
+				if n == 0 {
 					return cons(x, t)
 				} else {
-					n_ := _su_ - 1
+					n_ := n - 1
 					return cons(h, replace_nth(n_, (t).(list[any]), x))
 				}
 			}()).(list[T1])
@@ -739,16 +737,18 @@ func respawn_ghost(_ ghost_state) ghost_state {
 
 func tick_power(gs game_state) game_state {
 	return (func() any {
-		var _sni_ any = (func() uint {
+		if (func() uint {
 			scrut94 := gs
 			power_timer := scrut94.power_timer
 			return power_timer
-		})()
-		_su_ := _sni_.(uint)
-		if _su_ == 0 {
+		})() == 0 {
 			return gs
 		} else {
-			n := _su_ - 1
+			n := (func() uint {
+				scrut94 := gs
+				power_timer := scrut94.power_timer
+				return power_timer
+			})() - 1
 			return (func() game_state {
 				powered := !(eqb(n, uint(0)))
 				return (func() game_state {

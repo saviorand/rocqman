@@ -3,9 +3,7 @@ package main
 
 func nth(n any, l any, default0 any) any {
 	return func() any {
-		var _sni_ any = n
-		_su_ := _sni_.(uint)
-		if _su_ == 0 {
+		if (n).(uint) == 0 {
 			return (func() any {
 				scrut1 := any(l).(*listImpl)
 				switch scrut1.tag {
@@ -18,7 +16,7 @@ func nth(n any, l any, default0 any) any {
 				panic("unreachable")
 			})()
 		} else {
-			m := _su_ - 1
+			m := (n).(uint) - 1
 			return (func() any {
 				scrut2 := any(l).(*listImpl)
 				switch scrut2.tag {
