@@ -2,28 +2,27 @@
 package main
 
 type listImpl struct {
-	_v     int
-	_c1_d0 any
-	_c1_d1 any
+	tag  int
+	c1f0 any
+	c1f1 any
 }
 
 type list[T1 any] = *listImpl
 
-var nil_ *listImpl = &listImpl{_v: 0}
+var nil_ *listImpl = &listImpl{tag: 0}
 
 func cons(a0 any, a1 any) *listImpl {
-	return &listImpl{_v: 1, _c1_d0: a0, _c1_d1: a1}
+	return &listImpl{tag: 1, c1f0: a0, c1f1: a1}
 }
 
 func length(l any) uint {
 	return (func() uint {
-		var _box any = l
-		_scrut1 := _box.(*listImpl)
-		switch _scrut1._v {
+		scrut1 := any(l).(*listImpl)
+		switch scrut1.tag {
 		case 0:
 			return uint(0)
 		case 1:
-			l_ := _scrut1._c1_d1
+			l_ := scrut1.c1f1
 			return uint((length((l_).(list[any])) + 1))
 		}
 		panic("unreachable")
@@ -32,14 +31,13 @@ func length(l any) uint {
 
 func app(l any, m any) list[any] {
 	return (func() list[any] {
-		var _box any = l
-		_scrut2 := _box.(*listImpl)
-		switch _scrut2._v {
+		scrut2 := any(l).(*listImpl)
+		switch scrut2.tag {
 		case 0:
 			return (m).(list[any])
 		case 1:
-			a := _scrut2._c1_d0
-			l1 := _scrut2._c1_d1
+			a := scrut2.c1f0
+			l1 := scrut2.c1f1
 			return cons(a, app((l1).(list[any]), (m).(list[any])))
 		}
 		panic("unreachable")
