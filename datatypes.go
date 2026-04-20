@@ -16,30 +16,26 @@ func cons(a0 any, a1 any) *listImpl {
 }
 
 func length(l any) uint {
-	return (func() uint {
-		scrut1 := any(l).(*listImpl)
-		switch scrut1.tag {
-		case 0:
-			return uint(0)
-		case 1:
-			l_ := scrut1.c1f1
-			return uint((length((l_).(list[any])) + 1))
-		}
-		panic("unreachable")
-	})()
+	scrut1 := any(l).(*listImpl)
+	switch scrut1.tag {
+	case 0:
+		return uint(0)
+	case 1:
+		l_ := scrut1.c1f1
+		return uint((length((l_).(list[any])) + 1))
+	}
+	panic("unreachable")
 }
 
 func app(l any, m any) list[any] {
-	return (func() list[any] {
-		scrut2 := any(l).(*listImpl)
-		switch scrut2.tag {
-		case 0:
-			return (m).(list[any])
-		case 1:
-			a := scrut2.c1f0
-			l1 := scrut2.c1f1
-			return cons(a, app((l1).(list[any]), (m).(list[any])))
-		}
-		panic("unreachable")
-	})()
+	scrut2 := any(l).(*listImpl)
+	switch scrut2.tag {
+	case 0:
+		return (m).(list[any])
+	case 1:
+		a := scrut2.c1f0
+		l1 := scrut2.c1f1
+		return cons(a, app((l1).(list[any]), (m).(list[any])))
+	}
+	panic("unreachable")
 }

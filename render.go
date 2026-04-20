@@ -42,44 +42,38 @@ func lerp(from_v uint, to_v uint, num uint, den uint) uint {
 }
 
 func dir_to_degrees(d direction) uint {
-	return (func() uint {
-		scrut1 := d
-		switch scrut1 {
-		case Up:
-			return uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1))
-		case Down:
-			return uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1))
-		default:
-			return uint(0)
-		}
-		panic("unreachable")
-	})()
+	scrut1 := d
+	switch scrut1 {
+	case Up:
+		return uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1))
+	case Down:
+		return uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1))
+	default:
+		return uint(0)
+	}
+	panic("unreachable")
 }
 
 func dir_flip_h(d direction) bool {
-	return (func() bool {
-		scrut2 := d
-		switch scrut2 {
-		case Left:
-			return true
-		default:
-			return false
-		}
-		panic("unreachable")
-	})()
+	scrut2 := d
+	switch scrut2 {
+	case Left:
+		return true
+	default:
+		return false
+	}
+	panic("unreachable")
 }
 
 func ghost_color_index(idx uint, gm ghost_mode) uint {
-	return (func() uint {
-		scrut3 := gm
-		switch scrut3 {
-		case Chase:
-			return idx
-		case Frightened:
-			return uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1))
-		}
-		panic("unreachable")
-	})()
+	scrut3 := gm
+	switch scrut3 {
+	case Chase:
+		return idx
+	case Frightened:
+		return uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1))
+	}
+	panic("unreachable")
 }
 
 func filled_circle_rows(ren RocqSDLRenderer, cx uint, base_y uint, radius uint, i uint, count uint) struct{} {
@@ -344,35 +338,31 @@ func draw_one_glyph(ren RocqSDLRenderer, sx uint, sy uint, g uint, s uint) struc
 }
 
 func draw_glyphs(ren RocqSDLRenderer, sx uint, sy uint, s uint, glyphs list[uint]) struct{} {
-	return (func() struct{} {
-		scrut4 := any(glyphs).(*listImpl)
-		switch scrut4.tag {
-		case 0:
-			return struct{}{}
-		case 1:
-			g := scrut4.c1f0
-			rest := scrut4.c1f1
-			_ = draw_one_glyph(ren, sx, sy, (g).(uint), s)
-			return draw_glyphs(ren, add(sx, mul(uint((uint((uint((uint((uint((uint((uint(0)+1))+1))+1))+1))+1))+1)), s)), sy, s, (rest).(list[uint]))
-		}
-		panic("unreachable")
-	})()
+	scrut4 := any(glyphs).(*listImpl)
+	switch scrut4.tag {
+	case 0:
+		return struct{}{}
+	case 1:
+		g := scrut4.c1f0
+		rest := scrut4.c1f1
+		_ = draw_one_glyph(ren, sx, sy, (g).(uint), s)
+		return draw_glyphs(ren, add(sx, mul(uint((uint((uint((uint((uint((uint((uint(0)+1))+1))+1))+1))+1))+1)), s)), sy, s, (rest).(list[uint]))
+	}
+	panic("unreachable")
 }
 
 func draw_number_digits(ren RocqSDLRenderer, sx uint, sy uint, digits list[uint]) struct{} {
-	return (func() struct{} {
-		scrut5 := any(digits).(*listImpl)
-		switch scrut5.tag {
-		case 0:
-			return struct{}{}
-		case 1:
-			d := scrut5.c1f0
-			rest := scrut5.c1f1
-			_ = draw_one_glyph(ren, sx, sy, (d).(uint), uint((uint((uint((uint(0) + 1)) + 1)) + 1)))
-			return draw_number_digits(ren, add(sx, uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0)+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))), sy, (rest).(list[uint]))
-		}
-		panic("unreachable")
-	})()
+	scrut5 := any(digits).(*listImpl)
+	switch scrut5.tag {
+	case 0:
+		return struct{}{}
+	case 1:
+		d := scrut5.c1f0
+		rest := scrut5.c1f1
+		_ = draw_one_glyph(ren, sx, sy, (d).(uint), uint((uint((uint((uint(0) + 1)) + 1)) + 1)))
+		return draw_number_digits(ren, add(sx, uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0)+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))+1))), sy, (rest).(list[uint]))
+	}
+	panic("unreachable")
 }
 
 func nat_digits_aux(n uint, acc list[uint], fuel uint) list[uint] {
@@ -511,50 +501,46 @@ func draw_dot_check(ren RocqSDLRenderer, cx uint, cy uint) struct{} {
 }
 
 func draw_row_cells(ren RocqSDLRenderer, row uint, col uint, cells list[cell], pellet_phase uint) struct{} {
-	return (func() struct{} {
-		scrut6 := any(cells).(*listImpl)
-		switch scrut6.tag {
-		case 0:
-			return struct{}{}
-		case 1:
-			c := scrut6.c1f0
-			rest := scrut6.c1f1
-			_ = (func() any {
-				scrut7 := c
-				switch scrut7 {
-				case Wall:
-					_ = rocqSDLSetDrawColor(ren, uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)))
-					return rocqSDLFillRect(ren, add(mul(col, uint(32)), uint((uint(0)+1))), add(mul(row, uint(32)), uint((uint(0)+1))), sub(uint(32), uint((uint((uint(0)+1))+1))), sub(uint(32), uint((uint((uint(0)+1))+1))))
-				case Empty:
-					return struct{}{}
-				case Dot:
-					_ = rocqSDLSetDrawColor(ren, uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)))
-					return draw_filled_circle(ren, cell_center_x(col), cell_center_y(row), uint((uint((uint(0) + 1)) + 1)))
-				case PowerPellet:
-					return draw_dot_check(ren, cell_center_x(col), cell_center_y(row))
-				}
-				panic("unreachable")
-			})()
-			return draw_row_cells(ren, row, uint((col + 1)), (rest).(list[cell]), pellet_phase)
-		}
-		panic("unreachable")
-	})()
+	scrut6 := any(cells).(*listImpl)
+	switch scrut6.tag {
+	case 0:
+		return struct{}{}
+	case 1:
+		c := scrut6.c1f0
+		rest := scrut6.c1f1
+		_ = (func() any {
+			scrut7 := c
+			switch scrut7 {
+			case Wall:
+				_ = rocqSDLSetDrawColor(ren, uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)))
+				return rocqSDLFillRect(ren, add(mul(col, uint(32)), uint((uint(0)+1))), add(mul(row, uint(32)), uint((uint(0)+1))), sub(uint(32), uint((uint((uint(0)+1))+1))), sub(uint(32), uint((uint((uint(0)+1))+1))))
+			case Empty:
+				return struct{}{}
+			case Dot:
+				_ = rocqSDLSetDrawColor(ren, uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)))
+				return draw_filled_circle(ren, cell_center_x(col), cell_center_y(row), uint((uint((uint(0) + 1)) + 1)))
+			case PowerPellet:
+				return draw_dot_check(ren, cell_center_x(col), cell_center_y(row))
+			}
+			panic("unreachable")
+		})()
+		return draw_row_cells(ren, row, uint((col + 1)), (rest).(list[cell]), pellet_phase)
+	}
+	panic("unreachable")
 }
 
 func draw_board_rows(ren RocqSDLRenderer, row uint, rows list[list[cell]], pellet_phase uint) struct{} {
-	return (func() struct{} {
-		scrut8 := any(rows).(*listImpl)
-		switch scrut8.tag {
-		case 0:
-			return struct{}{}
-		case 1:
-			cells := scrut8.c1f0
-			rest := scrut8.c1f1
-			_ = draw_row_cells(ren, row, uint(0), (cells).(list[cell]), pellet_phase)
-			return draw_board_rows(ren, uint((row + 1)), (rest).(list[list[cell]]), pellet_phase)
-		}
-		panic("unreachable")
-	})()
+	scrut8 := any(rows).(*listImpl)
+	switch scrut8.tag {
+	case 0:
+		return struct{}{}
+	case 1:
+		cells := scrut8.c1f0
+		rest := scrut8.c1f1
+		_ = draw_row_cells(ren, row, uint(0), (cells).(list[cell]), pellet_phase)
+		return draw_board_rows(ren, uint((row + 1)), (rest).(list[list[cell]]), pellet_phase)
+	}
+	panic("unreachable")
 }
 
 func draw_board_sdl(ren RocqSDLRenderer, gs game_state, pellet_phase uint) struct{} {
@@ -566,85 +552,83 @@ func draw_board_sdl(ren RocqSDLRenderer, gs game_state, pellet_phase uint) struc
 }
 
 func draw_ghosts_aux(ren RocqSDLRenderer, idx uint, gs list[ghost_state], prev_gs list[ghost_state], t_num uint, t_den uint, time_ms uint) struct{} {
-	return (func() struct{} {
-		scrut10 := any(gs).(*listImpl)
-		switch scrut10.tag {
-		case 0:
-			return struct{}{}
-		case 1:
-			g := scrut10.c1f0
-			rest := scrut10.c1f1
-			prev_g := (func() ghost_state {
-				scrut11 := any(prev_gs).(*listImpl)
-				switch scrut11.tag {
-				case 0:
-					return (g).(ghost_state)
-				case 1:
-					pg := scrut11.c1f0
-					return (pg).(ghost_state)
-				}
-				panic("unreachable")
+	scrut10 := any(gs).(*listImpl)
+	switch scrut10.tag {
+	case 0:
+		return struct{}{}
+	case 1:
+		g := scrut10.c1f0
+		rest := scrut10.c1f1
+		prev_g := (func() ghost_state {
+			scrut11 := any(prev_gs).(*listImpl)
+			switch scrut11.tag {
+			case 0:
+				return (g).(ghost_state)
+			case 1:
+				pg := scrut11.c1f0
+				return (pg).(ghost_state)
+			}
+			panic("unreachable")
+		})()
+		prev_rest := (func() list[ghost_state] {
+			scrut12 := any(prev_gs).(*listImpl)
+			switch scrut12.tag {
+			case 0:
+				return nil_
+			case 1:
+				pr := scrut12.c1f1
+				return (pr).(list[ghost_state])
+			}
+			panic("unreachable")
+		})()
+		px := lerp(cell_center_x((func() uint {
+			scrut13 := (func() position {
+				scrut14 := prev_g
+				gpos := scrut14.gpos
+				return gpos
 			})()
-			prev_rest := (func() list[ghost_state] {
-				scrut12 := any(prev_gs).(*listImpl)
-				switch scrut12.tag {
-				case 0:
-					return nil_
-				case 1:
-					pr := scrut12.c1f1
-					return (pr).(list[ghost_state])
-				}
-				panic("unreachable")
+			pcol := scrut13.pcol
+			return pcol
+		})()), cell_center_x((func() uint {
+			scrut15 := (func() position {
+				scrut16 := any(g).(ghost_state)
+				gpos := scrut16.gpos
+				return gpos
 			})()
-			px := lerp(cell_center_x((func() uint {
-				scrut13 := (func() position {
-					scrut14 := prev_g
-					gpos := scrut14.gpos
-					return gpos
-				})()
-				pcol := scrut13.pcol
-				return pcol
-			})()), cell_center_x((func() uint {
-				scrut15 := (func() position {
-					scrut16 := any(g).(ghost_state)
-					gpos := scrut16.gpos
-					return gpos
-				})()
-				pcol := scrut15.pcol
-				return pcol
-			})()), t_num, t_den)
-			py := lerp(cell_center_y((func() uint {
-				scrut17 := (func() position {
-					scrut18 := prev_g
-					gpos := scrut18.gpos
-					return gpos
-				})()
-				prow := scrut17.prow
-				return prow
-			})()), cell_center_y((func() uint {
-				scrut19 := (func() position {
-					scrut20 := any(g).(ghost_state)
-					gpos := scrut20.gpos
-					return gpos
-				})()
-				prow := scrut19.prow
-				return prow
-			})()), t_num, t_den)
-			col := ghost_color_index(func() uint {
-				if uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) == 0 {
-					return idx
-				}
-				return idx % uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1))
-			}(), (func() ghost_mode {
-				scrut21 := any(g).(ghost_state)
-				gmode := scrut21.gmode
-				return gmode
-			})())
-			_ = draw_ghost_sprite(ren, px, py, col)
-			return draw_ghosts_aux(ren, uint((idx + 1)), (rest).(list[ghost_state]), prev_rest, t_num, t_den, time_ms)
-		}
-		panic("unreachable")
-	})()
+			pcol := scrut15.pcol
+			return pcol
+		})()), t_num, t_den)
+		py := lerp(cell_center_y((func() uint {
+			scrut17 := (func() position {
+				scrut18 := prev_g
+				gpos := scrut18.gpos
+				return gpos
+			})()
+			prow := scrut17.prow
+			return prow
+		})()), cell_center_y((func() uint {
+			scrut19 := (func() position {
+				scrut20 := any(g).(ghost_state)
+				gpos := scrut20.gpos
+				return gpos
+			})()
+			prow := scrut19.prow
+			return prow
+		})()), t_num, t_den)
+		col := ghost_color_index(func() uint {
+			if uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) == 0 {
+				return idx
+			}
+			return idx % uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1))
+		}(), (func() ghost_mode {
+			scrut21 := any(g).(ghost_state)
+			gmode := scrut21.gmode
+			return gmode
+		})())
+		_ = draw_ghost_sprite(ren, px, py, col)
+		return draw_ghosts_aux(ren, uint((idx + 1)), (rest).(list[ghost_state]), prev_rest, t_num, t_den, time_ms)
+	}
+	panic("unreachable")
 }
 
 func draw_player_sdl(ren RocqSDLRenderer, tex RocqSDLTexture, gs game_state, prev_pos position, t_num uint, t_den uint) struct{} {

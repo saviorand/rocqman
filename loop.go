@@ -5,160 +5,150 @@ func handle_key_down(key sdl_key, gs game_state) struct {
 	fst bool
 	snd game_state
 } {
-	return (func() struct {
-		fst bool
-		snd game_state
-	} {
-		scrut1 := key
-		switch scrut1 {
-		case KeyEscape:
-			return struct {
-				fst bool
-				snd game_state
-			}{fst: true, snd: gs}
-		case KeyQ:
-			return struct {
-				fst bool
-				snd game_state
-			}{fst: true, snd: gs}
-		case KeyUp:
-			return struct {
-				fst bool
-				snd game_state
-			}{fst: false, snd: set_direction(Up, gs)}
-		case KeyDown:
-			return struct {
-				fst bool
-				snd game_state
-			}{fst: false, snd: set_direction(Down, gs)}
-		case KeyLeft:
-			return struct {
-				fst bool
-				snd game_state
-			}{fst: false, snd: set_direction(Left, gs)}
-		case KeyW:
-			return struct {
-				fst bool
-				snd game_state
-			}{fst: false, snd: set_direction(Up, gs)}
-		case KeyA:
-			return struct {
-				fst bool
-				snd game_state
-			}{fst: false, snd: set_direction(Left, gs)}
-		case KeyS:
-			return struct {
-				fst bool
-				snd game_state
-			}{fst: false, snd: set_direction(Down, gs)}
-		case KeySpace:
-			return struct {
-				fst bool
-				snd game_state
-			}{fst: false, snd: gs}
-		default:
-			return struct {
-				fst bool
-				snd game_state
-			}{fst: false, snd: set_direction(Right, gs)}
-		}
-		panic("unreachable")
-	})()
+	scrut1 := key
+	switch scrut1 {
+	case KeyEscape:
+		return struct {
+			fst bool
+			snd game_state
+		}{fst: true, snd: gs}
+	case KeyQ:
+		return struct {
+			fst bool
+			snd game_state
+		}{fst: true, snd: gs}
+	case KeyUp:
+		return struct {
+			fst bool
+			snd game_state
+		}{fst: false, snd: set_direction(Up, gs)}
+	case KeyDown:
+		return struct {
+			fst bool
+			snd game_state
+		}{fst: false, snd: set_direction(Down, gs)}
+	case KeyLeft:
+		return struct {
+			fst bool
+			snd game_state
+		}{fst: false, snd: set_direction(Left, gs)}
+	case KeyW:
+		return struct {
+			fst bool
+			snd game_state
+		}{fst: false, snd: set_direction(Up, gs)}
+	case KeyA:
+		return struct {
+			fst bool
+			snd game_state
+		}{fst: false, snd: set_direction(Left, gs)}
+	case KeyS:
+		return struct {
+			fst bool
+			snd game_state
+		}{fst: false, snd: set_direction(Down, gs)}
+	case KeySpace:
+		return struct {
+			fst bool
+			snd game_state
+		}{fst: false, snd: gs}
+	default:
+		return struct {
+			fst bool
+			snd game_state
+		}{fst: false, snd: set_direction(Right, gs)}
+	}
+	panic("unreachable")
 }
 
 func find_pixel_collision(px uint, py uint, gs list[ghost_state], prev_gs list[ghost_state], t_num uint, t_den uint, threshold uint, idx uint) *struct {
 	fst uint
 	snd ghost_mode
 } {
-	return (func() *struct {
-		fst uint
-		snd ghost_mode
-	} {
-		scrut2 := any(gs).(*listImpl)
-		switch scrut2.tag {
-		case 0:
-			return nil
-		case 1:
-			g := scrut2.c1f0
-			rest := scrut2.c1f1
-			prev_g := (func() ghost_state {
-				scrut3 := any(prev_gs).(*listImpl)
-				switch scrut3.tag {
-				case 0:
-					return (g).(ghost_state)
-				case 1:
-					pg := scrut3.c1f0
-					return (pg).(ghost_state)
-				}
-				panic("unreachable")
+	scrut2 := any(gs).(*listImpl)
+	switch scrut2.tag {
+	case 0:
+		return nil
+	case 1:
+		g := scrut2.c1f0
+		rest := scrut2.c1f1
+		prev_g := (func() ghost_state {
+			scrut3 := any(prev_gs).(*listImpl)
+			switch scrut3.tag {
+			case 0:
+				return (g).(ghost_state)
+			case 1:
+				pg := scrut3.c1f0
+				return (pg).(ghost_state)
+			}
+			panic("unreachable")
+		})()
+		prev_rest := (func() list[ghost_state] {
+			scrut4 := any(prev_gs).(*listImpl)
+			switch scrut4.tag {
+			case 0:
+				return nil_
+			case 1:
+				pr := scrut4.c1f1
+				return (pr).(list[ghost_state])
+			}
+			panic("unreachable")
+		})()
+		gx := lerp(cell_center_x((func() uint {
+			scrut5 := (func() position {
+				scrut6 := prev_g
+				gpos := scrut6.gpos
+				return gpos
 			})()
-			prev_rest := (func() list[ghost_state] {
-				scrut4 := any(prev_gs).(*listImpl)
-				switch scrut4.tag {
-				case 0:
-					return nil_
-				case 1:
-					pr := scrut4.c1f1
-					return (pr).(list[ghost_state])
-				}
-				panic("unreachable")
+			pcol := scrut5.pcol
+			return pcol
+		})()), cell_center_x((func() uint {
+			scrut7 := (func() position {
+				scrut8 := any(g).(ghost_state)
+				gpos := scrut8.gpos
+				return gpos
 			})()
-			gx := lerp(cell_center_x((func() uint {
-				scrut5 := (func() position {
-					scrut6 := prev_g
-					gpos := scrut6.gpos
-					return gpos
-				})()
-				pcol := scrut5.pcol
-				return pcol
-			})()), cell_center_x((func() uint {
-				scrut7 := (func() position {
-					scrut8 := any(g).(ghost_state)
-					gpos := scrut8.gpos
-					return gpos
-				})()
-				pcol := scrut7.pcol
-				return pcol
-			})()), t_num, t_den)
-			gy := lerp(cell_center_y((func() uint {
-				scrut9 := (func() position {
-					scrut10 := prev_g
-					gpos := scrut10.gpos
-					return gpos
-				})()
-				prow := scrut9.prow
-				return prow
-			})()), cell_center_y((func() uint {
-				scrut11 := (func() position {
-					scrut12 := any(g).(ghost_state)
-					gpos := scrut12.gpos
-					return gpos
-				})()
-				prow := scrut11.prow
-				return prow
-			})()), t_num, t_den)
-			dx := abs_diff(px, gx)
-			dy := abs_diff(py, gy)
-			return (func() any {
-				if leb(add(mul(dx, dx), mul(dy, dy)), mul(threshold, threshold)) {
-					return rocqSome(struct {
-						fst uint
-						snd ghost_mode
-					}{fst: idx, snd: (func() ghost_mode {
-						scrut13 := any(g).(ghost_state)
-						gmode := scrut13.gmode
-						return gmode
-					})()})
-				} else {
-					return find_pixel_collision(px, py, (rest).(list[ghost_state]), prev_rest, t_num, t_den, threshold, uint((idx + 1)))
-				}
-			}()).(*struct {
-				fst uint
-				snd ghost_mode
-			})
-		}
-		panic("unreachable")
-	})()
+			pcol := scrut7.pcol
+			return pcol
+		})()), t_num, t_den)
+		gy := lerp(cell_center_y((func() uint {
+			scrut9 := (func() position {
+				scrut10 := prev_g
+				gpos := scrut10.gpos
+				return gpos
+			})()
+			prow := scrut9.prow
+			return prow
+		})()), cell_center_y((func() uint {
+			scrut11 := (func() position {
+				scrut12 := any(g).(ghost_state)
+				gpos := scrut12.gpos
+				return gpos
+			})()
+			prow := scrut11.prow
+			return prow
+		})()), t_num, t_den)
+		dx := abs_diff(px, gx)
+		dy := abs_diff(py, gy)
+		return (func() any {
+			if leb(add(mul(dx, dx), mul(dy, dy)), mul(threshold, threshold)) {
+				return rocqSome(struct {
+					fst uint
+					snd ghost_mode
+				}{fst: idx, snd: (func() ghost_mode {
+					scrut13 := any(g).(ghost_state)
+					gmode := scrut13.gmode
+					return gmode
+				})()})
+			} else {
+				return find_pixel_collision(px, py, (rest).(list[ghost_state]), prev_rest, t_num, t_den, threshold, uint((idx + 1)))
+			}
+		}()).(*struct {
+			fst uint
+			snd ghost_mode
+		})
+	}
+	panic("unreachable")
 }
 
 func eat_ghost_idx(idx uint, gs game_state) game_state {
@@ -285,18 +275,16 @@ var snd_tap string = "assets/tap.mp3"
 var snd_win string = "assets/win.mp3"
 
 func play_cell_sound(c cell) struct{} {
-	return (func() struct{} {
-		scrut32 := c
-		switch scrut32 {
-		case Dot:
-			return rocqSDLPlaySound(snd_tap)
-		case PowerPellet:
-			return rocqSDLPlaySound(snd_checkmark)
-		default:
-			return struct{}{}
-		}
-		panic("unreachable")
-	})()
+	scrut32 := c
+	switch scrut32 {
+	case Dot:
+		return rocqSDLPlaySound(snd_tap)
+	case PowerPellet:
+		return rocqSDLPlaySound(snd_checkmark)
+	default:
+		return struct{}{}
+	}
+	panic("unreachable")
 }
 
 func process_frame(ren RocqSDLRenderer, ls loop_state) struct {
@@ -304,1087 +292,1057 @@ func process_frame(ren RocqSDLRenderer, ls loop_state) struct {
 	snd loop_state
 } {
 	ev := rocqSDLPollEvent()
-	return (func() struct {
-		fst bool
-		snd loop_state
-	} {
-		scrut33 := any(ev).(*sdl_eventImpl)
-		switch scrut33.tag {
-		case 0:
-			return struct {
-				fst bool
-				snd loop_state
-			}{fst: true, snd: ls}
-		case 1:
-			now := rocqSDLGetTicks()
-			time_ms := sub(now, (func() uint {
-				scrut34 := ls
-				ls_start_time := scrut34.ls_start_time
-				return ls_start_time
-			})())
-			return (func() struct {
-				fst bool
-				snd loop_state
-			} {
-				scrut35 := (func() phase {
-					scrut36 := ls
-					ls_phase := scrut36.ls_phase
-					return ls_phase
+	scrut33 := any(ev).(*sdl_eventImpl)
+	switch scrut33.tag {
+	case 0:
+		return struct {
+			fst bool
+			snd loop_state
+		}{fst: true, snd: ls}
+	case 1:
+		now := rocqSDLGetTicks()
+		time_ms := sub(now, (func() uint {
+			scrut34 := ls
+			ls_start_time := scrut34.ls_start_time
+			return ls_start_time
+		})())
+		scrut35 := (func() phase {
+			scrut36 := ls
+			ls_phase := scrut36.ls_phase
+			return ls_phase
+		})()
+		switch scrut35 {
+		case Playing:
+			scrut37 := any(ev).(*sdl_eventImpl)
+			switch scrut37.tag {
+			case 0:
+				gs1 := (func() game_state {
+					scrut38 := ls
+					ls_game := scrut38.ls_game
+					return ls_game
 				})()
-				switch scrut35 {
-				case Playing:
-					return (func() struct {
-						fst bool
-						snd loop_state
-					} {
-						scrut37 := any(ev).(*sdl_eventImpl)
-						switch scrut37.tag {
-						case 0:
-							gs1 := (func() game_state {
-								scrut38 := ls
-								ls_game := scrut38.ls_game
-								return ls_game
+				elapsed := sub(now, (func() uint {
+					scrut39 := ls
+					ls_last_tick := scrut39.ls_last_tick
+					return ls_last_tick
+				})())
+				do_tick := leb(uint(400), elapsed)
+				gs2 := (func() any {
+					if do_tick {
+						return tick(gs1)
+					} else {
+						return gs1
+					}
+				}()).(game_state)
+				new_prev_pac := (func() any {
+					if do_tick {
+						return (func() position {
+							scrut40 := gs1
+							pacpos := scrut40.pacpos
+							return pacpos
+						})()
+					} else {
+						return (func() position {
+							scrut41 := ls
+							ls_prev_pac := scrut41.ls_prev_pac
+							return ls_prev_pac
+						})()
+					}
+				}()).(position)
+				new_prev_ghosts := (func() any {
+					if do_tick {
+						return (func() list[ghost_state] {
+							scrut42 := gs1
+							ghosts := scrut42.ghosts
+							return ghosts
+						})()
+					} else {
+						return (func() list[ghost_state] {
+							scrut43 := ls
+							ls_prev_ghosts := scrut43.ls_prev_ghosts
+							return ls_prev_ghosts
+						})()
+					}
+				}()).(list[ghost_state])
+				new_last_tick := (func() any {
+					if do_tick {
+						return now
+					} else {
+						return (func() uint {
+							scrut44 := ls
+							ls_last_tick := scrut44.ls_last_tick
+							return ls_last_tick
+						})()
+					}
+				}()).(uint)
+				eaten_cell := (func() any {
+					if do_tick {
+						return get_cell((func() uint {
+							scrut45 := (func() position {
+								scrut46 := gs2
+								pacpos := scrut46.pacpos
+								return pacpos
 							})()
-							elapsed := sub(now, (func() uint {
-								scrut39 := ls
-								ls_last_tick := scrut39.ls_last_tick
-								return ls_last_tick
-							})())
-							do_tick := leb(uint(400), elapsed)
-							gs2 := (func() any {
-								if do_tick {
-									return tick(gs1)
-								} else {
-									return gs1
-								}
-							}()).(game_state)
-							new_prev_pac := (func() any {
-								if do_tick {
-									return (func() position {
-										scrut40 := gs1
-										pacpos := scrut40.pacpos
-										return pacpos
-									})()
-								} else {
-									return (func() position {
-										scrut41 := ls
-										ls_prev_pac := scrut41.ls_prev_pac
-										return ls_prev_pac
-									})()
-								}
-							}()).(position)
-							new_prev_ghosts := (func() any {
-								if do_tick {
-									return (func() list[ghost_state] {
-										scrut42 := gs1
-										ghosts := scrut42.ghosts
-										return ghosts
-									})()
-								} else {
-									return (func() list[ghost_state] {
-										scrut43 := ls
-										ls_prev_ghosts := scrut43.ls_prev_ghosts
-										return ls_prev_ghosts
-									})()
-								}
-							}()).(list[ghost_state])
-							new_last_tick := (func() any {
-								if do_tick {
-									return now
-								} else {
-									return (func() uint {
-										scrut44 := ls
-										ls_last_tick := scrut44.ls_last_tick
-										return ls_last_tick
-									})()
-								}
-							}()).(uint)
-							eaten_cell := (func() any {
-								if do_tick {
-									return get_cell((func() uint {
-										scrut45 := (func() position {
-											scrut46 := gs2
-											pacpos := scrut46.pacpos
-											return pacpos
-										})()
-										prow := scrut45.prow
-										return prow
-									})(), (func() uint {
-										scrut47 := (func() position {
-											scrut48 := gs2
-											pacpos := scrut48.pacpos
-											return pacpos
-										})()
-										pcol := scrut47.pcol
-										return pcol
-									})(), (func() list[list[cell]] {
-										scrut49 := gs1
-										board := scrut49.board
-										return board
-									})())
-								} else {
-									return Empty
-								}
-							}()).(cell)
-							t_num := sub(now, new_last_tick)
-							ppx := lerp(cell_center_x((func() uint {
-								scrut50 := new_prev_pac
-								pcol := scrut50.pcol
-								return pcol
-							})()), cell_center_x((func() uint {
-								scrut51 := (func() position {
-									scrut52 := gs2
-									pacpos := scrut52.pacpos
-									return pacpos
-								})()
-								pcol := scrut51.pcol
-								return pcol
-							})()), t_num, uint(400))
-							ppy := lerp(cell_center_y((func() uint {
-								scrut53 := new_prev_pac
-								prow := scrut53.prow
-								return prow
-							})()), cell_center_y((func() uint {
-								scrut54 := (func() position {
-									scrut55 := gs2
-									pacpos := scrut55.pacpos
-									return pacpos
-								})()
-								prow := scrut54.prow
-								return prow
-							})()), t_num, uint(400))
-							return (func() any {
-								if (func() bool {
-									scrut56 := gs2
-									game_won := scrut56.game_won
-									return game_won
-								})() {
-									return (func() struct {
-										fst bool
-										snd loop_state
-									} {
-										_ = rocqSDLPlaySound(snd_win)
-										return (func() struct {
-											fst bool
-											snd loop_state
-										} {
-											_ = render_frame(ren, (func() RocqSDLTexture {
-												scrut57 := ls
-												ls_texture := scrut57.ls_texture
-												return ls_texture
-											})(), gs2, new_prev_pac, new_prev_ghosts, t_num, uint(400), time_ms)
-											return struct {
-												fst bool
-												snd loop_state
-											}{fst: false, snd: mkLoop(gs2, new_prev_pac, new_prev_ghosts, new_last_tick, (func() uint {
-												scrut58 := ls
-												ls_start_time := scrut58.ls_start_time
-												return ls_start_time
-											})(), (func() RocqSDLTexture {
-												scrut59 := ls
-												ls_texture := scrut59.ls_texture
-												return ls_texture
-											})(), WinScreen, now, false)}
-										})()
-									})()
-								} else {
-									return (func() any {
-										if find_pixel_collision(ppx, ppy, (func() list[ghost_state] {
-											scrut60 := gs2
-											ghosts := scrut60.ghosts
-											return ghosts
-										})(), new_prev_ghosts, t_num, uint(400), uint(22), uint(0)) != nil {
-											p := find_pixel_collision(ppx, ppy, (func() list[ghost_state] {
-												scrut60 := gs2
-												ghosts := scrut60.ghosts
-												return ghosts
-											})(), new_prev_ghosts, t_num, uint(400), uint(22), uint(0))
-											return (func() any {
-												idx := p.fst
-												g := p.snd
-												return (func() struct {
-													fst bool
-													snd loop_state
-												} {
-													scrut61 := g
-													switch scrut61 {
-													case Chase:
-														gs3 := lose_one_life(gs2)
-														next_pac := (func() position {
-															scrut62 := gs3
-															pacpos := scrut62.pacpos
-															return pacpos
-														})()
-														next_ghosts := (func() list[ghost_state] {
-															scrut63 := gs3
-															ghosts := scrut63.ghosts
-															return ghosts
-														})()
-														return (func() any {
-															if eqb((func() uint {
-																scrut64 := gs3
-																lives := scrut64.lives
-																return lives
-															})(), uint(0)) {
-																return (func() struct {
-																	fst bool
-																	snd loop_state
-																} {
-																	next_ls := mkLoop(gs3, next_pac, next_ghosts, now, (func() uint {
-																		scrut65 := ls
-																		ls_start_time := scrut65.ls_start_time
-																		return ls_start_time
-																	})(), (func() RocqSDLTexture {
-																		scrut66 := ls
-																		ls_texture := scrut66.ls_texture
-																		return ls_texture
-																	})(), GameOverScreen, now, false)
-																	return (func() struct {
-																		fst bool
-																		snd loop_state
-																	} {
-																		_ = rocqSDLPlaySound(snd_game_over)
-																		return struct {
-																			fst bool
-																			snd loop_state
-																		}{fst: false, snd: next_ls}
-																	})()
-																})()
-															} else {
-																return (func() struct {
-																	fst bool
-																	snd loop_state
-																} {
-																	next_ls := mkLoop(gs3, next_pac, next_ghosts, now, (func() uint {
-																		scrut67 := ls
-																		ls_start_time := scrut67.ls_start_time
-																		return ls_start_time
-																	})(), (func() RocqSDLTexture {
-																		scrut68 := ls
-																		ls_texture := scrut68.ls_texture
-																		return ls_texture
-																	})(), DeathPause, now, false)
-																	return (func() struct {
-																		fst bool
-																		snd loop_state
-																	} {
-																		_ = rocqSDLPlaySound(snd_lose_life)
-																		return struct {
-																			fst bool
-																			snd loop_state
-																		}{fst: false, snd: next_ls}
-																	})()
-																})()
-															}
-														}()).(struct {
-															fst bool
-															snd loop_state
-														})
-													case Frightened:
-														gs3 := eat_ghost_idx(idx, gs2)
-														next_ls := mkLoop(gs3, new_prev_pac, new_prev_ghosts, new_last_tick, (func() uint {
-															scrut69 := ls
-															ls_start_time := scrut69.ls_start_time
-															return ls_start_time
-														})(), (func() RocqSDLTexture {
-															scrut70 := ls
-															ls_texture := scrut70.ls_texture
-															return ls_texture
-														})(), Playing, uint(0), false)
-														_ = rocqSDLPlaySound(snd_kill_ghost)
-														_ = render_frame(ren, (func() RocqSDLTexture {
-															scrut71 := ls
-															ls_texture := scrut71.ls_texture
-															return ls_texture
-														})(), gs3, (func() position {
-															scrut72 := next_ls
-															ls_prev_pac := scrut72.ls_prev_pac
-															return ls_prev_pac
-														})(), (func() list[ghost_state] {
-															scrut73 := next_ls
-															ls_prev_ghosts := scrut73.ls_prev_ghosts
-															return ls_prev_ghosts
-														})(), t_num, uint(400), time_ms)
-														_ = frame_delay(now)
-														return struct {
-															fst bool
-															snd loop_state
-														}{fst: false, snd: next_ls}
-													}
-													panic("unreachable")
-												})()
-											}()).(struct {
-												fst bool
-												snd loop_state
-											})
-										} else {
-											return (func() struct {
-												fst bool
-												snd loop_state
-											} {
-												_ = play_cell_sound(eaten_cell)
-												return (func() struct {
-													fst bool
-													snd loop_state
-												} {
-													_ = render_frame(ren, (func() RocqSDLTexture {
-														scrut74 := ls
-														ls_texture := scrut74.ls_texture
-														return ls_texture
-													})(), gs2, new_prev_pac, new_prev_ghosts, t_num, uint(400), time_ms)
-													return (func() struct {
-														fst bool
-														snd loop_state
-													} {
-														_ = frame_delay(now)
-														return struct {
-															fst bool
-															snd loop_state
-														}{fst: false, snd: mkLoop(gs2, new_prev_pac, new_prev_ghosts, new_last_tick, (func() uint {
-															scrut75 := ls
-															ls_start_time := scrut75.ls_start_time
-															return ls_start_time
-														})(), (func() RocqSDLTexture {
-															scrut76 := ls
-															ls_texture := scrut76.ls_texture
-															return ls_texture
-														})(), Playing, uint(0), false)}
-													})()
-												})()
-											})()
-										}
-									}()).(struct {
-										fst bool
-										snd loop_state
-									})
-								}
-							}()).(struct {
-								fst bool
-								snd loop_state
-							})
-						case 1:
-							key := scrut37.c1f0
+							prow := scrut45.prow
+							return prow
+						})(), (func() uint {
+							scrut47 := (func() position {
+								scrut48 := gs2
+								pacpos := scrut48.pacpos
+								return pacpos
+							})()
+							pcol := scrut47.pcol
+							return pcol
+						})(), (func() list[list[cell]] {
+							scrut49 := gs1
+							board := scrut49.board
+							return board
+						})())
+					} else {
+						return Empty
+					}
+				}()).(cell)
+				t_num := sub(now, new_last_tick)
+				ppx := lerp(cell_center_x((func() uint {
+					scrut50 := new_prev_pac
+					pcol := scrut50.pcol
+					return pcol
+				})()), cell_center_x((func() uint {
+					scrut51 := (func() position {
+						scrut52 := gs2
+						pacpos := scrut52.pacpos
+						return pacpos
+					})()
+					pcol := scrut51.pcol
+					return pcol
+				})()), t_num, uint(400))
+				ppy := lerp(cell_center_y((func() uint {
+					scrut53 := new_prev_pac
+					prow := scrut53.prow
+					return prow
+				})()), cell_center_y((func() uint {
+					scrut54 := (func() position {
+						scrut55 := gs2
+						pacpos := scrut55.pacpos
+						return pacpos
+					})()
+					prow := scrut54.prow
+					return prow
+				})()), t_num, uint(400))
+				return (func() any {
+					if (func() bool {
+						scrut56 := gs2
+						game_won := scrut56.game_won
+						return game_won
+					})() {
+						return (func() struct {
+							fst bool
+							snd loop_state
+						} {
+							_ = rocqSDLPlaySound(snd_win)
 							return (func() struct {
 								fst bool
 								snd loop_state
 							} {
-								scrut77 := key
-								switch scrut77 {
-								case KeySpace:
-									_ = render_paused_frame(ren, (func() RocqSDLTexture {
-										scrut78 := ls
-										ls_texture := scrut78.ls_texture
-										return ls_texture
-									})(), (func() game_state {
-										scrut79 := ls
-										ls_game := scrut79.ls_game
-										return ls_game
-									})(), (func() position {
-										scrut80 := ls
-										ls_prev_pac := scrut80.ls_prev_pac
-										return ls_prev_pac
-									})(), (func() list[ghost_state] {
-										scrut81 := ls
-										ls_prev_ghosts := scrut81.ls_prev_ghosts
-										return ls_prev_ghosts
-									})(), uint(0), uint((uint(0) + 1)), time_ms)
-									_ = frame_delay(now)
-									return struct {
+								_ = render_frame(ren, (func() RocqSDLTexture {
+									scrut57 := ls
+									ls_texture := scrut57.ls_texture
+									return ls_texture
+								})(), gs2, new_prev_pac, new_prev_ghosts, t_num, uint(400), time_ms)
+								return struct {
+									fst bool
+									snd loop_state
+								}{fst: false, snd: mkLoop(gs2, new_prev_pac, new_prev_ghosts, new_last_tick, (func() uint {
+									scrut58 := ls
+									ls_start_time := scrut58.ls_start_time
+									return ls_start_time
+								})(), (func() RocqSDLTexture {
+									scrut59 := ls
+									ls_texture := scrut59.ls_texture
+									return ls_texture
+								})(), WinScreen, now, false)}
+							})()
+						})()
+					} else {
+						return (func() any {
+							if find_pixel_collision(ppx, ppy, (func() list[ghost_state] {
+								scrut60 := gs2
+								ghosts := scrut60.ghosts
+								return ghosts
+							})(), new_prev_ghosts, t_num, uint(400), uint(22), uint(0)) != nil {
+								p := find_pixel_collision(ppx, ppy, (func() list[ghost_state] {
+									scrut60 := gs2
+									ghosts := scrut60.ghosts
+									return ghosts
+								})(), new_prev_ghosts, t_num, uint(400), uint(22), uint(0))
+								return (func() any {
+									idx := p.fst
+									g := p.snd
+									return (func() struct {
 										fst bool
 										snd loop_state
-									}{fst: false, snd: mkLoop((func() game_state {
-										scrut82 := ls
-										ls_game := scrut82.ls_game
-										return ls_game
-									})(), (func() position {
-										scrut83 := ls
-										ls_prev_pac := scrut83.ls_prev_pac
-										return ls_prev_pac
-									})(), (func() list[ghost_state] {
-										scrut84 := ls
-										ls_prev_ghosts := scrut84.ls_prev_ghosts
-										return ls_prev_ghosts
-									})(), now, (func() uint {
-										scrut85 := ls
-										ls_start_time := scrut85.ls_start_time
-										return ls_start_time
-									})(), (func() RocqSDLTexture {
-										scrut86 := ls
-										ls_texture := scrut86.ls_texture
-										return ls_texture
-									})(), Paused, now, false)}
-								default:
-									return (func() any {
-										quit := handle_key_down((key).(sdl_key), (func() game_state {
-											scrut87 := ls
-											ls_game := scrut87.ls_game
-											return ls_game
-										})()).fst
-										gs1 := handle_key_down((key).(sdl_key), (func() game_state {
-											scrut87 := ls
-											ls_game := scrut87.ls_game
-											return ls_game
-										})()).snd
-										return (func() any {
-											if quit {
-												return struct {
-													fst bool
-													snd loop_state
-												}{fst: true, snd: ls}
-											} else {
-												return (func() struct {
-													fst bool
-													snd loop_state
-												} {
-													elapsed := sub(now, (func() uint {
-														scrut88 := ls
-														ls_last_tick := scrut88.ls_last_tick
-														return ls_last_tick
-													})())
+									} {
+										scrut61 := g
+										switch scrut61 {
+										case Chase:
+											gs3 := lose_one_life(gs2)
+											next_pac := (func() position {
+												scrut62 := gs3
+												pacpos := scrut62.pacpos
+												return pacpos
+											})()
+											next_ghosts := (func() list[ghost_state] {
+												scrut63 := gs3
+												ghosts := scrut63.ghosts
+												return ghosts
+											})()
+											return (func() any {
+												if eqb((func() uint {
+													scrut64 := gs3
+													lives := scrut64.lives
+													return lives
+												})(), uint(0)) {
 													return (func() struct {
 														fst bool
 														snd loop_state
 													} {
-														do_tick := leb(uint(400), elapsed)
+														next_ls := mkLoop(gs3, next_pac, next_ghosts, now, (func() uint {
+															scrut65 := ls
+															ls_start_time := scrut65.ls_start_time
+															return ls_start_time
+														})(), (func() RocqSDLTexture {
+															scrut66 := ls
+															ls_texture := scrut66.ls_texture
+															return ls_texture
+														})(), GameOverScreen, now, false)
 														return (func() struct {
 															fst bool
 															snd loop_state
 														} {
-															gs2 := (func() any {
+															_ = rocqSDLPlaySound(snd_game_over)
+															return struct {
+																fst bool
+																snd loop_state
+															}{fst: false, snd: next_ls}
+														})()
+													})()
+												} else {
+													return (func() struct {
+														fst bool
+														snd loop_state
+													} {
+														next_ls := mkLoop(gs3, next_pac, next_ghosts, now, (func() uint {
+															scrut67 := ls
+															ls_start_time := scrut67.ls_start_time
+															return ls_start_time
+														})(), (func() RocqSDLTexture {
+															scrut68 := ls
+															ls_texture := scrut68.ls_texture
+															return ls_texture
+														})(), DeathPause, now, false)
+														return (func() struct {
+															fst bool
+															snd loop_state
+														} {
+															_ = rocqSDLPlaySound(snd_lose_life)
+															return struct {
+																fst bool
+																snd loop_state
+															}{fst: false, snd: next_ls}
+														})()
+													})()
+												}
+											}()).(struct {
+												fst bool
+												snd loop_state
+											})
+										case Frightened:
+											gs3 := eat_ghost_idx(idx, gs2)
+											next_ls := mkLoop(gs3, new_prev_pac, new_prev_ghosts, new_last_tick, (func() uint {
+												scrut69 := ls
+												ls_start_time := scrut69.ls_start_time
+												return ls_start_time
+											})(), (func() RocqSDLTexture {
+												scrut70 := ls
+												ls_texture := scrut70.ls_texture
+												return ls_texture
+											})(), Playing, uint(0), false)
+											_ = rocqSDLPlaySound(snd_kill_ghost)
+											_ = render_frame(ren, (func() RocqSDLTexture {
+												scrut71 := ls
+												ls_texture := scrut71.ls_texture
+												return ls_texture
+											})(), gs3, (func() position {
+												scrut72 := next_ls
+												ls_prev_pac := scrut72.ls_prev_pac
+												return ls_prev_pac
+											})(), (func() list[ghost_state] {
+												scrut73 := next_ls
+												ls_prev_ghosts := scrut73.ls_prev_ghosts
+												return ls_prev_ghosts
+											})(), t_num, uint(400), time_ms)
+											_ = frame_delay(now)
+											return struct {
+												fst bool
+												snd loop_state
+											}{fst: false, snd: next_ls}
+										}
+										panic("unreachable")
+									})()
+								}()).(struct {
+									fst bool
+									snd loop_state
+								})
+							} else {
+								return (func() struct {
+									fst bool
+									snd loop_state
+								} {
+									_ = play_cell_sound(eaten_cell)
+									return (func() struct {
+										fst bool
+										snd loop_state
+									} {
+										_ = render_frame(ren, (func() RocqSDLTexture {
+											scrut74 := ls
+											ls_texture := scrut74.ls_texture
+											return ls_texture
+										})(), gs2, new_prev_pac, new_prev_ghosts, t_num, uint(400), time_ms)
+										return (func() struct {
+											fst bool
+											snd loop_state
+										} {
+											_ = frame_delay(now)
+											return struct {
+												fst bool
+												snd loop_state
+											}{fst: false, snd: mkLoop(gs2, new_prev_pac, new_prev_ghosts, new_last_tick, (func() uint {
+												scrut75 := ls
+												ls_start_time := scrut75.ls_start_time
+												return ls_start_time
+											})(), (func() RocqSDLTexture {
+												scrut76 := ls
+												ls_texture := scrut76.ls_texture
+												return ls_texture
+											})(), Playing, uint(0), false)}
+										})()
+									})()
+								})()
+							}
+						}()).(struct {
+							fst bool
+							snd loop_state
+						})
+					}
+				}()).(struct {
+					fst bool
+					snd loop_state
+				})
+			case 1:
+				key := scrut37.c1f0
+				scrut77 := key
+				switch scrut77 {
+				case KeySpace:
+					_ = render_paused_frame(ren, (func() RocqSDLTexture {
+						scrut78 := ls
+						ls_texture := scrut78.ls_texture
+						return ls_texture
+					})(), (func() game_state {
+						scrut79 := ls
+						ls_game := scrut79.ls_game
+						return ls_game
+					})(), (func() position {
+						scrut80 := ls
+						ls_prev_pac := scrut80.ls_prev_pac
+						return ls_prev_pac
+					})(), (func() list[ghost_state] {
+						scrut81 := ls
+						ls_prev_ghosts := scrut81.ls_prev_ghosts
+						return ls_prev_ghosts
+					})(), uint(0), uint((uint(0) + 1)), time_ms)
+					_ = frame_delay(now)
+					return struct {
+						fst bool
+						snd loop_state
+					}{fst: false, snd: mkLoop((func() game_state {
+						scrut82 := ls
+						ls_game := scrut82.ls_game
+						return ls_game
+					})(), (func() position {
+						scrut83 := ls
+						ls_prev_pac := scrut83.ls_prev_pac
+						return ls_prev_pac
+					})(), (func() list[ghost_state] {
+						scrut84 := ls
+						ls_prev_ghosts := scrut84.ls_prev_ghosts
+						return ls_prev_ghosts
+					})(), now, (func() uint {
+						scrut85 := ls
+						ls_start_time := scrut85.ls_start_time
+						return ls_start_time
+					})(), (func() RocqSDLTexture {
+						scrut86 := ls
+						ls_texture := scrut86.ls_texture
+						return ls_texture
+					})(), Paused, now, false)}
+				default:
+					return (func() any {
+						quit := handle_key_down((key).(sdl_key), (func() game_state {
+							scrut87 := ls
+							ls_game := scrut87.ls_game
+							return ls_game
+						})()).fst
+						gs1 := handle_key_down((key).(sdl_key), (func() game_state {
+							scrut87 := ls
+							ls_game := scrut87.ls_game
+							return ls_game
+						})()).snd
+						return (func() any {
+							if quit {
+								return struct {
+									fst bool
+									snd loop_state
+								}{fst: true, snd: ls}
+							} else {
+								return (func() struct {
+									fst bool
+									snd loop_state
+								} {
+									elapsed := sub(now, (func() uint {
+										scrut88 := ls
+										ls_last_tick := scrut88.ls_last_tick
+										return ls_last_tick
+									})())
+									return (func() struct {
+										fst bool
+										snd loop_state
+									} {
+										do_tick := leb(uint(400), elapsed)
+										return (func() struct {
+											fst bool
+											snd loop_state
+										} {
+											gs2 := (func() any {
+												if do_tick {
+													return tick(gs1)
+												} else {
+													return gs1
+												}
+											}()).(game_state)
+											return (func() struct {
+												fst bool
+												snd loop_state
+											} {
+												new_prev_pac := (func() any {
+													if do_tick {
+														return (func() position {
+															scrut89 := gs1
+															pacpos := scrut89.pacpos
+															return pacpos
+														})()
+													} else {
+														return (func() position {
+															scrut90 := ls
+															ls_prev_pac := scrut90.ls_prev_pac
+															return ls_prev_pac
+														})()
+													}
+												}()).(position)
+												return (func() struct {
+													fst bool
+													snd loop_state
+												} {
+													new_prev_ghosts := (func() any {
+														if do_tick {
+															return (func() list[ghost_state] {
+																scrut91 := gs1
+																ghosts := scrut91.ghosts
+																return ghosts
+															})()
+														} else {
+															return (func() list[ghost_state] {
+																scrut92 := ls
+																ls_prev_ghosts := scrut92.ls_prev_ghosts
+																return ls_prev_ghosts
+															})()
+														}
+													}()).(list[ghost_state])
+													return (func() struct {
+														fst bool
+														snd loop_state
+													} {
+														new_last_tick := (func() any {
+															if do_tick {
+																return now
+															} else {
+																return (func() uint {
+																	scrut93 := ls
+																	ls_last_tick := scrut93.ls_last_tick
+																	return ls_last_tick
+																})()
+															}
+														}()).(uint)
+														return (func() struct {
+															fst bool
+															snd loop_state
+														} {
+															eaten_cell := (func() any {
 																if do_tick {
-																	return tick(gs1)
+																	return get_cell((func() uint {
+																		scrut94 := (func() position {
+																			scrut95 := gs2
+																			pacpos := scrut95.pacpos
+																			return pacpos
+																		})()
+																		prow := scrut94.prow
+																		return prow
+																	})(), (func() uint {
+																		scrut96 := (func() position {
+																			scrut97 := gs2
+																			pacpos := scrut97.pacpos
+																			return pacpos
+																		})()
+																		pcol := scrut96.pcol
+																		return pcol
+																	})(), (func() list[list[cell]] {
+																		scrut98 := gs1
+																		board := scrut98.board
+																		return board
+																	})())
 																} else {
-																	return gs1
+																	return Empty
 																}
-															}()).(game_state)
+															}()).(cell)
 															return (func() struct {
 																fst bool
 																snd loop_state
 															} {
-																new_prev_pac := (func() any {
-																	if do_tick {
-																		return (func() position {
-																			scrut89 := gs1
-																			pacpos := scrut89.pacpos
-																			return pacpos
-																		})()
-																	} else {
-																		return (func() position {
-																			scrut90 := ls
-																			ls_prev_pac := scrut90.ls_prev_pac
-																			return ls_prev_pac
-																		})()
-																	}
-																}()).(position)
+																t_num := sub(now, new_last_tick)
 																return (func() struct {
 																	fst bool
 																	snd loop_state
 																} {
-																	new_prev_ghosts := (func() any {
-																		if do_tick {
-																			return (func() list[ghost_state] {
-																				scrut91 := gs1
-																				ghosts := scrut91.ghosts
-																				return ghosts
-																			})()
-																		} else {
-																			return (func() list[ghost_state] {
-																				scrut92 := ls
-																				ls_prev_ghosts := scrut92.ls_prev_ghosts
-																				return ls_prev_ghosts
-																			})()
-																		}
-																	}()).(list[ghost_state])
+																	ppx := lerp(cell_center_x((func() uint {
+																		scrut99 := new_prev_pac
+																		pcol := scrut99.pcol
+																		return pcol
+																	})()), cell_center_x((func() uint {
+																		scrut100 := (func() position {
+																			scrut101 := gs2
+																			pacpos := scrut101.pacpos
+																			return pacpos
+																		})()
+																		pcol := scrut100.pcol
+																		return pcol
+																	})()), t_num, uint(400))
 																	return (func() struct {
 																		fst bool
 																		snd loop_state
 																	} {
-																		new_last_tick := (func() any {
-																			if do_tick {
-																				return now
-																			} else {
-																				return (func() uint {
-																					scrut93 := ls
-																					ls_last_tick := scrut93.ls_last_tick
-																					return ls_last_tick
-																				})()
-																			}
-																		}()).(uint)
-																		return (func() struct {
-																			fst bool
-																			snd loop_state
-																		} {
-																			eaten_cell := (func() any {
-																				if do_tick {
-																					return get_cell((func() uint {
-																						scrut94 := (func() position {
-																							scrut95 := gs2
-																							pacpos := scrut95.pacpos
-																							return pacpos
-																						})()
-																						prow := scrut94.prow
-																						return prow
-																					})(), (func() uint {
-																						scrut96 := (func() position {
-																							scrut97 := gs2
-																							pacpos := scrut97.pacpos
-																							return pacpos
-																						})()
-																						pcol := scrut96.pcol
-																						return pcol
-																					})(), (func() list[list[cell]] {
-																						scrut98 := gs1
-																						board := scrut98.board
-																						return board
-																					})())
-																				} else {
-																					return Empty
-																				}
-																			}()).(cell)
-																			return (func() struct {
-																				fst bool
-																				snd loop_state
-																			} {
-																				t_num := sub(now, new_last_tick)
+																		ppy := lerp(cell_center_y((func() uint {
+																			scrut102 := new_prev_pac
+																			prow := scrut102.prow
+																			return prow
+																		})()), cell_center_y((func() uint {
+																			scrut103 := (func() position {
+																				scrut104 := gs2
+																				pacpos := scrut104.pacpos
+																				return pacpos
+																			})()
+																			prow := scrut103.prow
+																			return prow
+																		})()), t_num, uint(400))
+																		return (func() any {
+																			if (func() bool {
+																				scrut105 := gs2
+																				game_won := scrut105.game_won
+																				return game_won
+																			})() {
 																				return (func() struct {
 																					fst bool
 																					snd loop_state
 																				} {
-																					ppx := lerp(cell_center_x((func() uint {
-																						scrut99 := new_prev_pac
-																						pcol := scrut99.pcol
-																						return pcol
-																					})()), cell_center_x((func() uint {
-																						scrut100 := (func() position {
-																							scrut101 := gs2
-																							pacpos := scrut101.pacpos
-																							return pacpos
-																						})()
-																						pcol := scrut100.pcol
-																						return pcol
-																					})()), t_num, uint(400))
+																					_ = rocqSDLPlaySound(snd_win)
 																					return (func() struct {
 																						fst bool
 																						snd loop_state
 																					} {
-																						ppy := lerp(cell_center_y((func() uint {
-																							scrut102 := new_prev_pac
-																							prow := scrut102.prow
-																							return prow
-																						})()), cell_center_y((func() uint {
-																							scrut103 := (func() position {
-																								scrut104 := gs2
-																								pacpos := scrut104.pacpos
-																								return pacpos
-																							})()
-																							prow := scrut103.prow
-																							return prow
-																						})()), t_num, uint(400))
+																						_ = render_frame(ren, (func() RocqSDLTexture {
+																							scrut106 := ls
+																							ls_texture := scrut106.ls_texture
+																							return ls_texture
+																						})(), gs2, new_prev_pac, new_prev_ghosts, t_num, uint(400), time_ms)
+																						return struct {
+																							fst bool
+																							snd loop_state
+																						}{fst: false, snd: mkLoop(gs2, new_prev_pac, new_prev_ghosts, new_last_tick, (func() uint {
+																							scrut107 := ls
+																							ls_start_time := scrut107.ls_start_time
+																							return ls_start_time
+																						})(), (func() RocqSDLTexture {
+																							scrut108 := ls
+																							ls_texture := scrut108.ls_texture
+																							return ls_texture
+																						})(), WinScreen, now, false)}
+																					})()
+																				})()
+																			} else {
+																				return (func() any {
+																					if find_pixel_collision(ppx, ppy, (func() list[ghost_state] {
+																						scrut109 := gs2
+																						ghosts := scrut109.ghosts
+																						return ghosts
+																					})(), new_prev_ghosts, t_num, uint(400), uint(22), uint(0)) != nil {
+																						p := find_pixel_collision(ppx, ppy, (func() list[ghost_state] {
+																							scrut109 := gs2
+																							ghosts := scrut109.ghosts
+																							return ghosts
+																						})(), new_prev_ghosts, t_num, uint(400), uint(22), uint(0))
 																						return (func() any {
-																							if (func() bool {
-																								scrut105 := gs2
-																								game_won := scrut105.game_won
-																								return game_won
-																							})() {
-																								return (func() struct {
-																									fst bool
-																									snd loop_state
-																								} {
-																									_ = rocqSDLPlaySound(snd_win)
-																									return (func() struct {
-																										fst bool
-																										snd loop_state
-																									} {
-																										_ = render_frame(ren, (func() RocqSDLTexture {
-																											scrut106 := ls
-																											ls_texture := scrut106.ls_texture
-																											return ls_texture
-																										})(), gs2, new_prev_pac, new_prev_ghosts, t_num, uint(400), time_ms)
-																										return struct {
-																											fst bool
-																											snd loop_state
-																										}{fst: false, snd: mkLoop(gs2, new_prev_pac, new_prev_ghosts, new_last_tick, (func() uint {
-																											scrut107 := ls
-																											ls_start_time := scrut107.ls_start_time
-																											return ls_start_time
-																										})(), (func() RocqSDLTexture {
-																											scrut108 := ls
-																											ls_texture := scrut108.ls_texture
-																											return ls_texture
-																										})(), WinScreen, now, false)}
+																							idx := p.fst
+																							g := p.snd
+																							return (func() struct {
+																								fst bool
+																								snd loop_state
+																							} {
+																								scrut110 := g
+																								switch scrut110 {
+																								case Chase:
+																									gs3 := lose_one_life(gs2)
+																									next_pac := (func() position {
+																										scrut111 := gs3
+																										pacpos := scrut111.pacpos
+																										return pacpos
 																									})()
-																								})()
-																							} else {
-																								return (func() any {
-																									if find_pixel_collision(ppx, ppy, (func() list[ghost_state] {
-																										scrut109 := gs2
-																										ghosts := scrut109.ghosts
+																									next_ghosts := (func() list[ghost_state] {
+																										scrut112 := gs3
+																										ghosts := scrut112.ghosts
 																										return ghosts
-																									})(), new_prev_ghosts, t_num, uint(400), uint(22), uint(0)) != nil {
-																										p := find_pixel_collision(ppx, ppy, (func() list[ghost_state] {
-																											scrut109 := gs2
-																											ghosts := scrut109.ghosts
-																											return ghosts
-																										})(), new_prev_ghosts, t_num, uint(400), uint(22), uint(0))
-																										return (func() any {
-																											idx := p.fst
-																											g := p.snd
+																									})()
+																									return (func() any {
+																										if eqb((func() uint {
+																											scrut113 := gs3
+																											lives := scrut113.lives
+																											return lives
+																										})(), uint(0)) {
 																											return (func() struct {
 																												fst bool
 																												snd loop_state
 																											} {
-																												scrut110 := g
-																												switch scrut110 {
-																												case Chase:
-																													gs3 := lose_one_life(gs2)
-																													next_pac := (func() position {
-																														scrut111 := gs3
-																														pacpos := scrut111.pacpos
-																														return pacpos
-																													})()
-																													next_ghosts := (func() list[ghost_state] {
-																														scrut112 := gs3
-																														ghosts := scrut112.ghosts
-																														return ghosts
-																													})()
-																													return (func() any {
-																														if eqb((func() uint {
-																															scrut113 := gs3
-																															lives := scrut113.lives
-																															return lives
-																														})(), uint(0)) {
-																															return (func() struct {
-																																fst bool
-																																snd loop_state
-																															} {
-																																next_ls := mkLoop(gs3, next_pac, next_ghosts, now, (func() uint {
-																																	scrut114 := ls
-																																	ls_start_time := scrut114.ls_start_time
-																																	return ls_start_time
-																																})(), (func() RocqSDLTexture {
-																																	scrut115 := ls
-																																	ls_texture := scrut115.ls_texture
-																																	return ls_texture
-																																})(), GameOverScreen, now, false)
-																																return (func() struct {
-																																	fst bool
-																																	snd loop_state
-																																} {
-																																	_ = rocqSDLPlaySound(snd_game_over)
-																																	return struct {
-																																		fst bool
-																																		snd loop_state
-																																	}{fst: false, snd: next_ls}
-																																})()
-																															})()
-																														} else {
-																															return (func() struct {
-																																fst bool
-																																snd loop_state
-																															} {
-																																next_ls := mkLoop(gs3, next_pac, next_ghosts, now, (func() uint {
-																																	scrut116 := ls
-																																	ls_start_time := scrut116.ls_start_time
-																																	return ls_start_time
-																																})(), (func() RocqSDLTexture {
-																																	scrut117 := ls
-																																	ls_texture := scrut117.ls_texture
-																																	return ls_texture
-																																})(), DeathPause, now, false)
-																																return (func() struct {
-																																	fst bool
-																																	snd loop_state
-																																} {
-																																	_ = rocqSDLPlaySound(snd_lose_life)
-																																	return struct {
-																																		fst bool
-																																		snd loop_state
-																																	}{fst: false, snd: next_ls}
-																																})()
-																															})()
-																														}
-																													}()).(struct {
-																														fst bool
-																														snd loop_state
-																													})
-																												case Frightened:
-																													gs3 := eat_ghost_idx(idx, gs2)
-																													next_ls := mkLoop(gs3, new_prev_pac, new_prev_ghosts, new_last_tick, (func() uint {
-																														scrut118 := ls
-																														ls_start_time := scrut118.ls_start_time
-																														return ls_start_time
-																													})(), (func() RocqSDLTexture {
-																														scrut119 := ls
-																														ls_texture := scrut119.ls_texture
-																														return ls_texture
-																													})(), Playing, uint(0), false)
-																													_ = rocqSDLPlaySound(snd_kill_ghost)
-																													_ = render_frame(ren, (func() RocqSDLTexture {
-																														scrut120 := ls
-																														ls_texture := scrut120.ls_texture
-																														return ls_texture
-																													})(), gs3, (func() position {
-																														scrut121 := next_ls
-																														ls_prev_pac := scrut121.ls_prev_pac
-																														return ls_prev_pac
-																													})(), (func() list[ghost_state] {
-																														scrut122 := next_ls
-																														ls_prev_ghosts := scrut122.ls_prev_ghosts
-																														return ls_prev_ghosts
-																													})(), t_num, uint(400), time_ms)
-																													_ = frame_delay(now)
-																													return struct {
-																														fst bool
-																														snd loop_state
-																													}{fst: false, snd: next_ls}
-																												}
-																												panic("unreachable")
-																											})()
-																										}()).(struct {
-																											fst bool
-																											snd loop_state
-																										})
-																									} else {
-																										return (func() struct {
-																											fst bool
-																											snd loop_state
-																										} {
-																											_ = play_cell_sound(eaten_cell)
-																											return (func() struct {
-																												fst bool
-																												snd loop_state
-																											} {
-																												_ = render_frame(ren, (func() RocqSDLTexture {
-																													scrut123 := ls
-																													ls_texture := scrut123.ls_texture
+																												next_ls := mkLoop(gs3, next_pac, next_ghosts, now, (func() uint {
+																													scrut114 := ls
+																													ls_start_time := scrut114.ls_start_time
+																													return ls_start_time
+																												})(), (func() RocqSDLTexture {
+																													scrut115 := ls
+																													ls_texture := scrut115.ls_texture
 																													return ls_texture
-																												})(), gs2, new_prev_pac, new_prev_ghosts, t_num, uint(400), time_ms)
+																												})(), GameOverScreen, now, false)
 																												return (func() struct {
 																													fst bool
 																													snd loop_state
 																												} {
-																													_ = frame_delay(now)
+																													_ = rocqSDLPlaySound(snd_game_over)
 																													return struct {
 																														fst bool
 																														snd loop_state
-																													}{fst: false, snd: mkLoop(gs2, new_prev_pac, new_prev_ghosts, new_last_tick, (func() uint {
-																														scrut124 := ls
-																														ls_start_time := scrut124.ls_start_time
-																														return ls_start_time
-																													})(), (func() RocqSDLTexture {
-																														scrut125 := ls
-																														ls_texture := scrut125.ls_texture
-																														return ls_texture
-																													})(), Playing, uint(0), false)}
+																													}{fst: false, snd: next_ls}
 																												})()
 																											})()
-																										})()
-																									}
-																								}()).(struct {
-																									fst bool
-																									snd loop_state
-																								})
-																							}
+																										} else {
+																											return (func() struct {
+																												fst bool
+																												snd loop_state
+																											} {
+																												next_ls := mkLoop(gs3, next_pac, next_ghosts, now, (func() uint {
+																													scrut116 := ls
+																													ls_start_time := scrut116.ls_start_time
+																													return ls_start_time
+																												})(), (func() RocqSDLTexture {
+																													scrut117 := ls
+																													ls_texture := scrut117.ls_texture
+																													return ls_texture
+																												})(), DeathPause, now, false)
+																												return (func() struct {
+																													fst bool
+																													snd loop_state
+																												} {
+																													_ = rocqSDLPlaySound(snd_lose_life)
+																													return struct {
+																														fst bool
+																														snd loop_state
+																													}{fst: false, snd: next_ls}
+																												})()
+																											})()
+																										}
+																									}()).(struct {
+																										fst bool
+																										snd loop_state
+																									})
+																								case Frightened:
+																									gs3 := eat_ghost_idx(idx, gs2)
+																									next_ls := mkLoop(gs3, new_prev_pac, new_prev_ghosts, new_last_tick, (func() uint {
+																										scrut118 := ls
+																										ls_start_time := scrut118.ls_start_time
+																										return ls_start_time
+																									})(), (func() RocqSDLTexture {
+																										scrut119 := ls
+																										ls_texture := scrut119.ls_texture
+																										return ls_texture
+																									})(), Playing, uint(0), false)
+																									_ = rocqSDLPlaySound(snd_kill_ghost)
+																									_ = render_frame(ren, (func() RocqSDLTexture {
+																										scrut120 := ls
+																										ls_texture := scrut120.ls_texture
+																										return ls_texture
+																									})(), gs3, (func() position {
+																										scrut121 := next_ls
+																										ls_prev_pac := scrut121.ls_prev_pac
+																										return ls_prev_pac
+																									})(), (func() list[ghost_state] {
+																										scrut122 := next_ls
+																										ls_prev_ghosts := scrut122.ls_prev_ghosts
+																										return ls_prev_ghosts
+																									})(), t_num, uint(400), time_ms)
+																									_ = frame_delay(now)
+																									return struct {
+																										fst bool
+																										snd loop_state
+																									}{fst: false, snd: next_ls}
+																								}
+																								panic("unreachable")
+																							})()
 																						}()).(struct {
 																							fst bool
 																							snd loop_state
 																						})
-																					})()
-																				})()
-																			})()
-																		})()
+																					} else {
+																						return (func() struct {
+																							fst bool
+																							snd loop_state
+																						} {
+																							_ = play_cell_sound(eaten_cell)
+																							return (func() struct {
+																								fst bool
+																								snd loop_state
+																							} {
+																								_ = render_frame(ren, (func() RocqSDLTexture {
+																									scrut123 := ls
+																									ls_texture := scrut123.ls_texture
+																									return ls_texture
+																								})(), gs2, new_prev_pac, new_prev_ghosts, t_num, uint(400), time_ms)
+																								return (func() struct {
+																									fst bool
+																									snd loop_state
+																								} {
+																									_ = frame_delay(now)
+																									return struct {
+																										fst bool
+																										snd loop_state
+																									}{fst: false, snd: mkLoop(gs2, new_prev_pac, new_prev_ghosts, new_last_tick, (func() uint {
+																										scrut124 := ls
+																										ls_start_time := scrut124.ls_start_time
+																										return ls_start_time
+																									})(), (func() RocqSDLTexture {
+																										scrut125 := ls
+																										ls_texture := scrut125.ls_texture
+																										return ls_texture
+																									})(), Playing, uint(0), false)}
+																								})()
+																							})()
+																						})()
+																					}
+																				}()).(struct {
+																					fst bool
+																					snd loop_state
+																				})
+																			}
+																		}()).(struct {
+																			fst bool
+																			snd loop_state
+																		})
 																	})()
 																})()
 															})()
 														})()
 													})()
 												})()
-											}
-										}()).(struct {
-											fst bool
-											snd loop_state
-										})
-									}()).(struct {
-										fst bool
-										snd loop_state
-									})
-								}
-								panic("unreachable")
-							})()
-						}
-						panic("unreachable")
-					})()
-				case Paused:
-					return (func() struct {
-						fst bool
-						snd loop_state
-					} {
-						scrut126 := any(ev).(*sdl_eventImpl)
-						switch scrut126.tag {
-						case 0:
-							_ = render_paused_frame(ren, (func() RocqSDLTexture {
-								scrut127 := ls
-								ls_texture := scrut127.ls_texture
-								return ls_texture
-							})(), (func() game_state {
-								scrut128 := ls
-								ls_game := scrut128.ls_game
-								return ls_game
-							})(), (func() position {
-								scrut129 := ls
-								ls_prev_pac := scrut129.ls_prev_pac
-								return ls_prev_pac
-							})(), (func() list[ghost_state] {
-								scrut130 := ls
-								ls_prev_ghosts := scrut130.ls_prev_ghosts
-								return ls_prev_ghosts
-							})(), uint(0), uint((uint(0) + 1)), time_ms)
-							_ = frame_delay(now)
-							return struct {
-								fst bool
-								snd loop_state
-							}{fst: false, snd: ls}
-						case 1:
-							key := scrut126.c1f0
-							return (func() struct {
-								fst bool
-								snd loop_state
-							} {
-								scrut131 := key
-								switch scrut131 {
-								case KeySpace:
-									gs := (func() game_state {
-										scrut132 := ls
-										ls_game := scrut132.ls_game
-										return ls_game
+											})()
+										})()
 									})()
-									return struct {
-										fst bool
-										snd loop_state
-									}{fst: false, snd: mkLoop(gs, (func() position {
-										scrut133 := gs
-										pacpos := scrut133.pacpos
-										return pacpos
-									})(), (func() list[ghost_state] {
-										scrut134 := gs
-										ghosts := scrut134.ghosts
-										return ghosts
-									})(), now, (func() uint {
-										scrut135 := ls
-										ls_start_time := scrut135.ls_start_time
-										return ls_start_time
-									})(), (func() RocqSDLTexture {
-										scrut136 := ls
-										ls_texture := scrut136.ls_texture
-										return ls_texture
-									})(), Playing, uint(0), false)}
-								default:
-									return (func() any {
-										quit := handle_key_down((key).(sdl_key), (func() game_state {
-											scrut137 := ls
-											ls_game := scrut137.ls_game
-											return ls_game
-										})()).fst
-										_ = handle_key_down((key).(sdl_key), (func() game_state {
-											scrut137 := ls
-											ls_game := scrut137.ls_game
-											return ls_game
-										})()).snd
-										return (func() any {
-											if quit {
-												return struct {
-													fst bool
-													snd loop_state
-												}{fst: true, snd: ls}
-											} else {
-												return (func() struct {
-													fst bool
-													snd loop_state
-												} {
-													_ = render_paused_frame(ren, (func() RocqSDLTexture {
-														scrut138 := ls
-														ls_texture := scrut138.ls_texture
-														return ls_texture
-													})(), (func() game_state {
-														scrut139 := ls
-														ls_game := scrut139.ls_game
-														return ls_game
-													})(), (func() position {
-														scrut140 := ls
-														ls_prev_pac := scrut140.ls_prev_pac
-														return ls_prev_pac
-													})(), (func() list[ghost_state] {
-														scrut141 := ls
-														ls_prev_ghosts := scrut141.ls_prev_ghosts
-														return ls_prev_ghosts
-													})(), uint(0), uint((uint(0) + 1)), time_ms)
-													return (func() struct {
-														fst bool
-														snd loop_state
-													} {
-														_ = frame_delay(now)
-														return struct {
-															fst bool
-															snd loop_state
-														}{fst: false, snd: ls}
-													})()
-												})()
-											}
-										}()).(struct {
-											fst bool
-											snd loop_state
-										})
-									}()).(struct {
-										fst bool
-										snd loop_state
-									})
-								}
-								panic("unreachable")
-							})()
-						}
-						panic("unreachable")
-					})()
-				case DeathPause:
-					return (func() any {
-						if leb(uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), sub(now, (func() uint {
-							scrut142 := ls
-							ls_phase_time := scrut142.ls_phase_time
-							return ls_phase_time
-						})())) {
-							return struct {
-								fst bool
-								snd loop_state
-							}{fst: false, snd: mkLoop((func() game_state {
-								scrut143 := ls
-								ls_game := scrut143.ls_game
-								return ls_game
-							})(), (func() position {
-								scrut144 := (func() game_state {
-									scrut145 := ls
-									ls_game := scrut145.ls_game
-									return ls_game
 								})()
-								pacpos := scrut144.pacpos
-								return pacpos
-							})(), (func() list[ghost_state] {
-								scrut146 := (func() game_state {
-									scrut147 := ls
-									ls_game := scrut147.ls_game
-									return ls_game
-								})()
-								ghosts := scrut146.ghosts
-								return ghosts
-							})(), now, (func() uint {
-								scrut148 := ls
-								ls_start_time := scrut148.ls_start_time
-								return ls_start_time
-							})(), (func() RocqSDLTexture {
-								scrut149 := ls
-								ls_texture := scrut149.ls_texture
-								return ls_texture
-							})(), Playing, uint(0), false)}
-						} else {
-							return (func() struct {
-								fst bool
-								snd loop_state
-							} {
-								_ = draw_message_screen(ren, msg_lives_left((func() uint {
-									scrut150 := (func() game_state {
-										scrut151 := ls
-										ls_game := scrut151.ls_game
-										return ls_game
-									})()
-									lives := scrut150.lives
-									return lives
-								})()))
-								return (func() struct {
-									fst bool
-									snd loop_state
-								} {
-									_ = frame_delay(now)
-									return struct {
-										fst bool
-										snd loop_state
-									}{fst: false, snd: ls}
-								})()
-							})()
-						}
-					}()).(struct {
-						fst bool
-						snd loop_state
-					})
-				case GameOverScreen:
-					return (func() any {
-						if leb(uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), sub(now, (func() uint {
-							scrut152 := ls
-							ls_phase_time := scrut152.ls_phase_time
-							return ls_phase_time
-						})())) {
-							return struct {
-								fst bool
-								snd loop_state
-							}{fst: true, snd: ls}
-						} else {
-							return (func() struct {
-								fst bool
-								snd loop_state
-							} {
-								_ = draw_message_screen(ren, msg_game_over)
-								return (func() struct {
-									fst bool
-									snd loop_state
-								} {
-									_ = frame_delay(now)
-									return struct {
-										fst bool
-										snd loop_state
-									}{fst: false, snd: ls}
-								})()
-							})()
-						}
-					}()).(struct {
-						fst bool
-						snd loop_state
-					})
-				case WinScreen:
-					return (func() any {
-						if leb(uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), sub(now, (func() uint {
-							scrut153 := ls
-							ls_phase_time := scrut153.ls_phase_time
-							return ls_phase_time
-						})())) {
-							return struct {
-								fst bool
-								snd loop_state
-							}{fst: true, snd: ls}
-						} else {
-							return (func() struct {
-								fst bool
-								snd loop_state
-							} {
-								_ = draw_message_screen(ren, msg_you_win)
-								return (func() struct {
-									fst bool
-									snd loop_state
-								} {
-									_ = frame_delay(now)
-									return struct {
-										fst bool
-										snd loop_state
-									}{fst: false, snd: ls}
-								})()
-							})()
-						}
+							}
+						}()).(struct {
+							fst bool
+							snd loop_state
+						})
 					}()).(struct {
 						fst bool
 						snd loop_state
 					})
 				}
 				panic("unreachable")
-			})()
+			}
+			panic("unreachable")
+		case Paused:
+			scrut126 := any(ev).(*sdl_eventImpl)
+			switch scrut126.tag {
+			case 0:
+				_ = render_paused_frame(ren, (func() RocqSDLTexture {
+					scrut127 := ls
+					ls_texture := scrut127.ls_texture
+					return ls_texture
+				})(), (func() game_state {
+					scrut128 := ls
+					ls_game := scrut128.ls_game
+					return ls_game
+				})(), (func() position {
+					scrut129 := ls
+					ls_prev_pac := scrut129.ls_prev_pac
+					return ls_prev_pac
+				})(), (func() list[ghost_state] {
+					scrut130 := ls
+					ls_prev_ghosts := scrut130.ls_prev_ghosts
+					return ls_prev_ghosts
+				})(), uint(0), uint((uint(0) + 1)), time_ms)
+				_ = frame_delay(now)
+				return struct {
+					fst bool
+					snd loop_state
+				}{fst: false, snd: ls}
+			case 1:
+				key := scrut126.c1f0
+				scrut131 := key
+				switch scrut131 {
+				case KeySpace:
+					gs := (func() game_state {
+						scrut132 := ls
+						ls_game := scrut132.ls_game
+						return ls_game
+					})()
+					return struct {
+						fst bool
+						snd loop_state
+					}{fst: false, snd: mkLoop(gs, (func() position {
+						scrut133 := gs
+						pacpos := scrut133.pacpos
+						return pacpos
+					})(), (func() list[ghost_state] {
+						scrut134 := gs
+						ghosts := scrut134.ghosts
+						return ghosts
+					})(), now, (func() uint {
+						scrut135 := ls
+						ls_start_time := scrut135.ls_start_time
+						return ls_start_time
+					})(), (func() RocqSDLTexture {
+						scrut136 := ls
+						ls_texture := scrut136.ls_texture
+						return ls_texture
+					})(), Playing, uint(0), false)}
+				default:
+					return (func() any {
+						quit := handle_key_down((key).(sdl_key), (func() game_state {
+							scrut137 := ls
+							ls_game := scrut137.ls_game
+							return ls_game
+						})()).fst
+						_ = handle_key_down((key).(sdl_key), (func() game_state {
+							scrut137 := ls
+							ls_game := scrut137.ls_game
+							return ls_game
+						})()).snd
+						return (func() any {
+							if quit {
+								return struct {
+									fst bool
+									snd loop_state
+								}{fst: true, snd: ls}
+							} else {
+								return (func() struct {
+									fst bool
+									snd loop_state
+								} {
+									_ = render_paused_frame(ren, (func() RocqSDLTexture {
+										scrut138 := ls
+										ls_texture := scrut138.ls_texture
+										return ls_texture
+									})(), (func() game_state {
+										scrut139 := ls
+										ls_game := scrut139.ls_game
+										return ls_game
+									})(), (func() position {
+										scrut140 := ls
+										ls_prev_pac := scrut140.ls_prev_pac
+										return ls_prev_pac
+									})(), (func() list[ghost_state] {
+										scrut141 := ls
+										ls_prev_ghosts := scrut141.ls_prev_ghosts
+										return ls_prev_ghosts
+									})(), uint(0), uint((uint(0) + 1)), time_ms)
+									return (func() struct {
+										fst bool
+										snd loop_state
+									} {
+										_ = frame_delay(now)
+										return struct {
+											fst bool
+											snd loop_state
+										}{fst: false, snd: ls}
+									})()
+								})()
+							}
+						}()).(struct {
+							fst bool
+							snd loop_state
+						})
+					}()).(struct {
+						fst bool
+						snd loop_state
+					})
+				}
+				panic("unreachable")
+			}
+			panic("unreachable")
+		case DeathPause:
+			return (func() any {
+				if leb(uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), sub(now, (func() uint {
+					scrut142 := ls
+					ls_phase_time := scrut142.ls_phase_time
+					return ls_phase_time
+				})())) {
+					return struct {
+						fst bool
+						snd loop_state
+					}{fst: false, snd: mkLoop((func() game_state {
+						scrut143 := ls
+						ls_game := scrut143.ls_game
+						return ls_game
+					})(), (func() position {
+						scrut144 := (func() game_state {
+							scrut145 := ls
+							ls_game := scrut145.ls_game
+							return ls_game
+						})()
+						pacpos := scrut144.pacpos
+						return pacpos
+					})(), (func() list[ghost_state] {
+						scrut146 := (func() game_state {
+							scrut147 := ls
+							ls_game := scrut147.ls_game
+							return ls_game
+						})()
+						ghosts := scrut146.ghosts
+						return ghosts
+					})(), now, (func() uint {
+						scrut148 := ls
+						ls_start_time := scrut148.ls_start_time
+						return ls_start_time
+					})(), (func() RocqSDLTexture {
+						scrut149 := ls
+						ls_texture := scrut149.ls_texture
+						return ls_texture
+					})(), Playing, uint(0), false)}
+				} else {
+					return (func() struct {
+						fst bool
+						snd loop_state
+					} {
+						_ = draw_message_screen(ren, msg_lives_left((func() uint {
+							scrut150 := (func() game_state {
+								scrut151 := ls
+								ls_game := scrut151.ls_game
+								return ls_game
+							})()
+							lives := scrut150.lives
+							return lives
+						})()))
+						return (func() struct {
+							fst bool
+							snd loop_state
+						} {
+							_ = frame_delay(now)
+							return struct {
+								fst bool
+								snd loop_state
+							}{fst: false, snd: ls}
+						})()
+					})()
+				}
+			}()).(struct {
+				fst bool
+				snd loop_state
+			})
+		case GameOverScreen:
+			return (func() any {
+				if leb(uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), sub(now, (func() uint {
+					scrut152 := ls
+					ls_phase_time := scrut152.ls_phase_time
+					return ls_phase_time
+				})())) {
+					return struct {
+						fst bool
+						snd loop_state
+					}{fst: true, snd: ls}
+				} else {
+					return (func() struct {
+						fst bool
+						snd loop_state
+					} {
+						_ = draw_message_screen(ren, msg_game_over)
+						return (func() struct {
+							fst bool
+							snd loop_state
+						} {
+							_ = frame_delay(now)
+							return struct {
+								fst bool
+								snd loop_state
+							}{fst: false, snd: ls}
+						})()
+					})()
+				}
+			}()).(struct {
+				fst bool
+				snd loop_state
+			})
+		case WinScreen:
+			return (func() any {
+				if leb(uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint((uint(0) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)) + 1)), sub(now, (func() uint {
+					scrut153 := ls
+					ls_phase_time := scrut153.ls_phase_time
+					return ls_phase_time
+				})())) {
+					return struct {
+						fst bool
+						snd loop_state
+					}{fst: true, snd: ls}
+				} else {
+					return (func() struct {
+						fst bool
+						snd loop_state
+					} {
+						_ = draw_message_screen(ren, msg_you_win)
+						return (func() struct {
+							fst bool
+							snd loop_state
+						} {
+							_ = frame_delay(now)
+							return struct {
+								fst bool
+								snd loop_state
+							}{fst: false, snd: ls}
+						})()
+					})()
+				}
+			}()).(struct {
+				fst bool
+				snd loop_state
+			})
 		}
 		panic("unreachable")
-	})()
+	}
+	panic("unreachable")
 }
 
 var init_game struct {
